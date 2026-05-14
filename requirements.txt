@@ -1,0 +1,8 @@
+# Data processing
+numpy
+pandas
+scipy
+
+# Visualisation
+matplotlib
+seaborn
