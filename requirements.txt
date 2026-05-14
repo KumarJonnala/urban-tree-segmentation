@@ -3,6 +3,10 @@ numpy
 pandas
 scipy
 
+# Satellite imagery
+openeo
+rasterio
+
 # Visualisation
 matplotlib
 seaborn
