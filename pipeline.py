@@ -3,14 +3,24 @@
 Subcommands:
   download   — fetch orthophoto tile grid for all configured areas
   segment    — run OSM + vegetation segmentation on downloaded tiles
+  compare    — run all vegetation methods side-by-side and print metrics
+  shadow     — cast tree shadows from segmentation maps for a given datetime
   all        — download then segment (default when no subcommand given)
 
 Examples:
-  python pipeline.py                     # download + segment
-  python pipeline.py download            # tiles only
-  python pipeline.py download --dry-run  # preview tile layout
-  python pipeline.py segment             # segment only (tiles must exist)
-  python pipeline.py all                 # explicit end-to-end
+  python pipeline.py                                      # download + segment (VARI)
+  python pipeline.py download                             # tiles only
+  python pipeline.py download --dry-run                   # preview tile layout
+  python pipeline.py segment                              # segment with VARI (default)
+  python pipeline.py segment --vegetation-model deepforest
+  python pipeline.py segment --vegetation-model segformer
+  python pipeline.py segment --vegetation-model deeplab
+  python pipeline.py compare                              # all methods, all areas
+  python pipeline.py compare --area ovgu_bbox             # single area
+  python pipeline.py all --vegetation-model deepforest    # download + segment
+  python pipeline.py shadow                               # shadows for all tiles (now UTC)
+  python pipeline.py shadow --datetime-utc "2026-05-21T11:00:00"
+  python pipeline.py shadow --area ovgu_bbox --vegetation-model vari
 """
 
 import argparse
@@ -20,7 +30,47 @@ from PIL import Image
 
 from src.config import AREAS, OUTPUT_DIR, TILE_SIZE_M
 from src.data_preprocessing import fetch_area_grid, tiles_for_area
-from src.segmentation import fetch_buildings, fetch_roads, save_segmentation, vari_mask
+from src.segmentation import (
+    compare_vegetation,
+    fetch_buildings,
+    fetch_roads,
+    save_segmentation,
+    vari_mask,
+)
+
+VEGETATION_MODELS = ("vari", "deepforest", "samgeo", "segformer_b5", "deeplab")
+
+
+def _load_vegetation_model(name: str):
+    """Load the requested model and return a callable mask_fn(img) -> bool array."""
+    if name == "vari":
+        return None, vari_mask
+
+    if name == "deepforest":
+        from src.segmentation import deepforest_mask, load_deepforest
+        print(f"  Loading DeepForest model...")
+        m = load_deepforest()
+        return m, lambda img, model=m: deepforest_mask(img, model=model)
+
+    if name == "samgeo":
+        from src.segmentation import load_samgeo, samgeo_mask
+        print(f"  Loading SamGeo...")
+        m = load_samgeo()
+        return m, lambda img, model=m: samgeo_mask(img, model=model)
+
+    if name == "segformer_b5":
+        from src.segmentation import load_segformer_b5, segformer_b5_mask
+        print(f"  Loading SegFormer-B5 model...")
+        proc, mdl = load_segformer_b5()
+        return (proc, mdl), lambda img, p=proc, m=mdl: segformer_b5_mask(img, processor=p, model=m)
+
+    if name == "deeplab":
+        from src.segmentation import deeplab_mask, load_deeplab
+        print(f"  Loading DeepLab model...")
+        m = load_deeplab()
+        return m, lambda img, model=m: deeplab_mask(img, model=model)
+
+    raise ValueError(f"Unknown vegetation model: {name!r}. Choose from {VEGETATION_MODELS}")
 
 
 def cmd_download(dry_run: bool = False) -> None:
@@ -35,23 +85,60 @@ def cmd_download(dry_run: bool = False) -> None:
             print(f"  {len(paths)} tile(s) saved")
 
 
-def cmd_segment() -> None:
+def cmd_segment(vegetation_model: str = "vari") -> None:
     seg_dir = OUTPUT_DIR / "segments"
+    _, mask_fn = _load_vegetation_model(vegetation_model)
 
     for area_name, area in AREAS.items():
         tiles = tiles_for_area(area, TILE_SIZE_M)
         tile_dir = OUTPUT_DIR / area_name
-        print(f"\n--- {area_name}: segmenting {len(tiles)} tile(s) ---")
+        print(f"\n--- {area_name}: segmenting {len(tiles)} tile(s) [{vegetation_model}] ---")
 
-        buildings = fetch_buildings(
-            area,
-            cache_path=OUTPUT_DIR / f"buildings_{area_name}.geojson",
-        )
-        roads = fetch_roads(
-            area,
-            cache_path=OUTPUT_DIR / f"roads_{area_name}.geojson",
-        )
+        buildings = fetch_buildings(area, cache_path=OUTPUT_DIR / f"buildings_{area_name}.geojson")
+        roads = fetch_roads(area, cache_path=OUTPUT_DIR / f"roads_{area_name}.geojson")
         print(f"  OSM: {len(buildings)} buildings, {len(roads)} roads")
+
+        for t in tiles:
+            base_stem = f"{area_name}_tile_{t['ix']}_{t['iy']}"
+            tile_path = tile_dir / f"{base_stem}.png"
+            if not tile_path.exists():
+                print(f"  [skip] {base_stem}.png not found — run 'download' first")
+                continue
+
+            img = np.array(Image.open(tile_path).convert("RGB"))
+            tree_mask = mask_fn(img)
+            stem = f"{base_stem}_{vegetation_model}"
+            npy_path, png_path = save_segmentation(
+                img, t, buildings, roads, tree_mask,
+                out_dir=seg_dir, stem=stem,
+            )
+            print(f"  {base_stem}: saved {npy_path.name}, {png_path.name}")
+
+
+def cmd_compare(area_filter: str | None = None) -> None:
+    seg_dir = OUTPUT_DIR / "segments"
+    areas = {k: v for k, v in AREAS.items() if area_filter is None or k == area_filter}
+    if not areas:
+        print(f"No area named {area_filter!r}. Available: {list(AREAS)}")
+        return
+
+    # Load all models once up front
+    print("Loading models...")
+    models = {}
+    for name in VEGETATION_MODELS:
+        if name == "vari":
+            continue
+        loaded, _ = _load_vegetation_model(name)
+        # sam_prompted needs its components split out for compare_vegetation
+        models[name] = loaded
+    print("  All models ready.\n")
+
+    all_metrics = []
+
+    for area_name, _ in areas.items():
+        tiles = tiles_for_area(AREAS[area_name], TILE_SIZE_M)
+        tile_dir = OUTPUT_DIR / area_name
+        print(f"--- {area_name}: comparing {len(tiles)} tile(s) ---")
 
         for t in tiles:
             stem = f"{area_name}_tile_{t['ix']}_{t['iy']}"
@@ -61,18 +148,82 @@ def cmd_segment() -> None:
                 continue
 
             img = np.array(Image.open(tile_path).convert("RGB"))
-            tree_mask = vari_mask(img)
-            npy_path, png_path = save_segmentation(
-                img, t, buildings, roads, tree_mask,
-                out_dir=seg_dir, stem=stem,
+            result = compare_vegetation(
+                img,
+                methods=VEGETATION_MODELS,
+                out_dir=seg_dir,
+                stem=stem,
+                models=models,
             )
-            print(f"  {stem}: saved {npy_path.name}, {png_path.name}")
+            metrics = result["metrics"].reset_index()
+            metrics.insert(0, "tile", stem)
+            all_metrics.append(metrics)
+            print(result["metrics"].to_string())
+            print()
+
+    if all_metrics:
+        import pandas as pd
+        combined = pd.concat(all_metrics, ignore_index=True)
+        csv_path = seg_dir / "comparison_metrics.csv"
+        combined.to_csv(csv_path, index=False)
+        print(f"Metrics saved to {csv_path}")
 
 
-def cmd_all(dry_run: bool = False) -> None:
+def cmd_shadow(
+    area_filter: str | None = None,
+    vegetation_model: str = "vari",
+    datetime_utc: str | None = None,
+) -> None:
+    import datetime as dt
+    from src.shadow import cast_tree_shadows, save_shadow_overlay
+
+    if datetime_utc is None:
+        when = dt.datetime.now(tz=dt.timezone.utc)
+    else:
+        when = dt.datetime.fromisoformat(datetime_utc).replace(tzinfo=dt.timezone.utc)
+
+    shadow_dir = OUTPUT_DIR / "shadows"
+    areas = {k: v for k, v in AREAS.items() if area_filter is None or k == area_filter}
+    if not areas:
+        print(f"No area named {area_filter!r}. Available: {list(AREAS)}")
+        return
+
+    print(f"Shadow casting for {when.strftime('%Y-%m-%d %H:%M UTC')}")
+
+    for area_name, _ in areas.items():
+        tiles = tiles_for_area(AREAS[area_name], TILE_SIZE_M)
+        print(f"\n--- {area_name}: {len(tiles)} tile(s) ---")
+
+        for t in tiles:
+            stem = f"{area_name}_tile_{t['ix']}_{t['iy']}"
+            seg_path = OUTPUT_DIR / "segments" / f"{stem}_{vegetation_model}_seg.npy"
+            img_path = OUTPUT_DIR / area_name / f"{stem}.png"
+
+            if not seg_path.exists():
+                print(f"  [skip] {seg_path.name} not found — run 'segment' first")
+                continue
+            if not img_path.exists():
+                print(f"  [skip] {img_path.name} not found — run 'download' first")
+                continue
+
+            seg_map = np.load(seg_path)
+            img = np.array(Image.open(img_path).convert("RGB"))
+
+            shadow_mask = cast_tree_shadows(seg_map, t, when)
+            coverage_pct = shadow_mask.mean() * 100
+
+            out_path = shadow_dir / f"{stem}_{vegetation_model}_shadow.png"
+            save_shadow_overlay(
+                img, seg_map, shadow_mask, out_path,
+                title=f"{stem} — {when.strftime('%Y-%m-%d %H:%M UTC')}",
+            )
+            print(f"  {stem}: shadow={coverage_pct:.1f}%  → {out_path.name}")
+
+
+def cmd_all(dry_run: bool = False, vegetation_model: str = "vari") -> None:
     cmd_download(dry_run=dry_run)
     if not dry_run:
-        cmd_segment()
+        cmd_segment(vegetation_model=vegetation_model)
 
 
 if __name__ == "__main__":
@@ -85,18 +236,55 @@ if __name__ == "__main__":
     dl = sub.add_parser("download", help="Fetch orthophoto tile grid")
     dl.add_argument("--dry-run", action="store_true", help="Show tile layout without downloading")
 
-    sub.add_parser("segment", help="Segment downloaded tiles (OSM + vegetation)")
+    seg = sub.add_parser("segment", help="Segment downloaded tiles (OSM + vegetation)")
+    seg.add_argument(
+        "--vegetation-model",
+        choices=VEGETATION_MODELS,
+        default="vari",
+        help="Vegetation segmentation method (default: vari)",
+    )
+
+    cmp = sub.add_parser("compare", help="Compare all vegetation methods side-by-side")
+    cmp.add_argument("--area", default=None, help="Limit to a single area name")
+
+    shd = sub.add_parser("shadow", help="Cast tree shadows from segmentation maps")
+    shd.add_argument("--area", default=None, help="Limit to a single area name")
+    shd.add_argument(
+        "--vegetation-model",
+        choices=VEGETATION_MODELS,
+        default="vari",
+        help="Which segmentation files to load (default: vari)",
+    )
+    shd.add_argument(
+        "--datetime-utc",
+        default=None,
+        help='ISO datetime in UTC, e.g. "2024-06-21T11:00:00". Defaults to now.',
+    )
 
     all_cmd = sub.add_parser("all", help="Download then segment")
-    all_cmd.add_argument("--dry-run", action="store_true", help="Show tile layout without downloading")
+    all_cmd.add_argument("--dry-run", action="store_true")
+    all_cmd.add_argument(
+        "--vegetation-model",
+        choices=VEGETATION_MODELS,
+        default="vari",
+        help="Vegetation segmentation method (default: vari)",
+    )
 
     args = parser.parse_args()
 
     if args.command == "download":
         cmd_download(dry_run=args.dry_run)
     elif args.command == "segment":
-        cmd_segment()
+        cmd_segment(vegetation_model=args.vegetation_model)
+    elif args.command == "compare":
+        cmd_compare(area_filter=args.area)
+    elif args.command == "shadow":
+        cmd_shadow(
+            area_filter=args.area,
+            vegetation_model=args.vegetation_model,
+            datetime_utc=args.datetime_utc,
+        )
     elif args.command == "all":
-        cmd_all(dry_run=args.dry_run)
+        cmd_all(dry_run=args.dry_run, vegetation_model=args.vegetation_model)
     else:
         cmd_all()

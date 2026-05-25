@@ -18,3 +18,4 @@ torch
 torchvision
 pyproj
 osmnx
+pysolar
