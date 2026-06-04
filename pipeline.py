@@ -102,8 +102,9 @@ def cmd_download(dry_run: bool = False) -> None:
 
 def cmd_segment(vegetation_model: str = DEFAULT_VEGETATION_MODEL) -> None:
     from src.shadow.casting import vectorize_trees
+    from src.segmentation import deepforest_crowns_gdf
     seg_dir = OUTPUT_DIR / "segments"
-    _, mask_fn = _load_vegetation_model(vegetation_model)
+    model, mask_fn = _load_vegetation_model(vegetation_model)
 
     for area_name, area in AREAS.items():
         tiles = tiles_for_area(area, TILE_SIZE_M)
@@ -129,7 +130,10 @@ def cmd_segment(vegetation_model: str = DEFAULT_VEGETATION_MODEL) -> None:
                 out_dir=seg_dir, stem=stem,
             )
             print(f"  {base_stem}: saved {npy_path.name}, {png_path.name}")
-            tree_gdf = vectorize_trees(tree_mask, t, vegetation_model)
+            if vegetation_model == "deepforest":
+                tree_gdf = deepforest_crowns_gdf(img, t, model=model)
+            else:
+                tree_gdf = vectorize_trees(tree_mask, t, vegetation_model)
             fgb_path = seg_dir / f"{stem}_trees.fgb"
             tree_gdf.to_file(fgb_path, driver="FlatGeobuf")
             print(f"  {base_stem}: vectorized {len(tree_gdf)} tree(s) → {fgb_path.name}")
@@ -196,7 +200,7 @@ def cmd_shadow(
 ) -> None:
     import datetime as dt
     import geopandas as gpd
-    from src.shadow import cast_tree_shadows, save_shadow_overlay
+    from src.shadow import cast_tree_shadows, save_shadow_overlay, vectorize_shadows
 
     if datetime_utc is None:
         when = dt.datetime.now(tz=dt.timezone.utc)
@@ -244,7 +248,11 @@ def cmd_shadow(
                 img, seg_map, shadow_mask, out_path,
                 title=f"{stem} — {when.strftime('%Y-%m-%d %H:%M UTC')}",
             )
-            print(f"  {stem}: shadow={coverage_pct:.1f}%  → {out_path.name}")
+
+            shadow_gdf = vectorize_shadows(shadow_mask, t, when, vegetation_model)
+            fgb_out = shadow_dir / f"{stem}_{vegetation_model}_shadow.fgb"
+            shadow_gdf.to_file(fgb_out, driver="FlatGeobuf")
+            print(f"  {stem}: shadow={coverage_pct:.1f}%  → {out_path.name}, {fgb_out.name}")
 
 
 def cmd_tune(
