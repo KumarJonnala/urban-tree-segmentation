@@ -14,7 +14,10 @@ IMAGE_HEIGHT = 1200
 OUTPUT_DIR = Path(__file__).resolve().parents[1] / "data" / "orthophotos"
 
 # Tile size (meters) for subdivision of areas into grid, optimmal size needs to be determined experimentally
-TILE_SIZE_M = 500
+TILE_SIZE_M = 250
+
+# Default vegetation segmentation model used by segment, shadow, and all subcommands
+DEFAULT_VEGETATION_MODEL = "tcd_segformer"
 
 # Geographic areas to fetch (bounding boxes in WGS84 lat/lon)
 AREAS = {
