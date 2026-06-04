@@ -17,6 +17,13 @@ def _best_device() -> str:
 # VARI — rule-based spectral baseline
 # ---------------------------------------------------------------------------
 
+def _vari(img: np.ndarray) -> np.ndarray:
+    r = img[:, :, 0].astype(float)
+    g = img[:, :, 1].astype(float)
+    b = img[:, :, 2].astype(float)
+    return (g - r) / (g + r - b + 1e-6)
+
+
 def vari_mask(
     img: np.ndarray,
     threshold: float = 0.05,
@@ -42,10 +49,7 @@ def vari_mask(
     np.ndarray
         Boolean array of shape (H, W).
     """
-    r = img[:, :, 0].astype(float)
-    g = img[:, :, 1].astype(float)
-    b = img[:, :, 2].astype(float)
-    vari = (g - r) / (g + r - b + 1e-6)
+    vari = _vari(img)
     raw = vari > threshold
     mask = remove_small_objects(raw, max_size=min_size - 1)
     mask = closing(mask, disk(closing_radius))
@@ -200,11 +204,11 @@ def segformer_b5_mask(
 # SamGeo — SAM automatic mask generation filtered by VARI spectral signal
 # ---------------------------------------------------------------------------
 
-def load_samgeo(device: str | None = None):
+def load_samgeo():
     """Load SamGeo using the local ViT-B SAM checkpoint.
 
-    SAM's automatic mask generator requires float64 tensors; MPS does not support
-    float64, so CPU is used regardless of available hardware.
+    Always runs on CPU — SAM's automatic mask generator requires float64, which
+    MPS does not support.
     """
     from pathlib import Path
     from samgeo import SamGeo
@@ -251,11 +255,7 @@ def samgeo_mask(
     if model is None:
         model = load_samgeo()
 
-    # Compute VARI for spectral filtering
-    r = img[:, :, 0].astype(float)
-    g = img[:, :, 1].astype(float)
-    b = img[:, :, 2].astype(float)
-    vari = (g - r) / (g + r - b + 1e-6)
+    vari = _vari(img)
 
     # Run SAM automatic mask generation (populates model.masks)
     model.generate(img, output=None)
@@ -272,6 +272,129 @@ def samgeo_mask(
             mask |= region
 
     return mask
+
+
+# ---------------------------------------------------------------------------
+# TCD SegFormer — tree cover delineation, trained on global aerial imagery
+# ---------------------------------------------------------------------------
+
+_TCD_SEGFORMER_CHECKPOINT = "restor/tcd-segformer-mit-b5"
+_TCD_TREE_CLASS = 1  # binary: 0=background, 1=tree
+
+
+def load_tcd_segformer(
+    model_id: str = _TCD_SEGFORMER_CHECKPOINT,
+    device: str | None = None,
+):
+    """Load the TCD SegFormer model trained on aerial imagery. Returns (processor, model)."""
+    from transformers import AutoImageProcessor, SegformerForSemanticSegmentation
+    proc = AutoImageProcessor.from_pretrained(model_id)
+    mdl = SegformerForSemanticSegmentation.from_pretrained(model_id)
+    dev = device or _best_device()
+    return proc, mdl.eval().to(dev)
+
+
+def tcd_segformer_mask(
+    img: np.ndarray,
+    processor=None,
+    model=None,
+    device: str | None = None,
+    resize_to: int | None = 1024,
+) -> np.ndarray:
+    """Tree cover mask via TCD SegFormer (restor/tcd-segformer-mit-b5).
+
+    Trained on global high-resolution aerial imagery (~10 cm/px). Outputs a
+    binary tree/no-tree mask.  The model is scale-sensitive: resize_to crops
+    inference to a safe tile size before upsampling back to original shape.
+
+    Parameters
+    ----------
+    img : np.ndarray
+        Shape (H, W, 3), dtype uint8, RGB order.
+    processor, model : optional
+        Pre-loaded via load_tcd_segformer(). If None, loads on every call.
+    device : str, optional
+        Torch device string. Defaults to MPS > CUDA > CPU.
+    resize_to : int or None
+        Resize the longer side to this value before inference, then upsample
+        output back to original shape. None disables resizing.
+
+    Returns
+    -------
+    np.ndarray
+        Boolean array of shape (H, W). True = tree.
+    """
+    import torch
+    import torch.nn.functional as F
+    from PIL import Image as PilImage
+
+    dev = device or _best_device()
+    if processor is None or model is None:
+        processor, model = load_tcd_segformer(device=dev)
+
+    orig_h, orig_w = img.shape[:2]
+    pil_img = PilImage.fromarray(img)
+
+    if resize_to is not None:
+        scale = resize_to / max(orig_h, orig_w)
+        new_h, new_w = int(orig_h * scale), int(orig_w * scale)
+        pil_img = pil_img.resize((new_w, new_h), PilImage.BILINEAR)
+
+    inputs = processor(images=pil_img, return_tensors="pt")
+    inputs = {k: v.to(dev) for k, v in inputs.items()}
+
+    with torch.no_grad():
+        logits = model(**inputs).logits  # (1, 2, H', W')
+
+    upsampled = F.interpolate(
+        logits, size=(orig_h, orig_w), mode="bilinear", align_corners=False
+    )
+    pred = upsampled.argmax(dim=1).squeeze().cpu().numpy()
+    return pred == _TCD_TREE_CLASS
+
+
+# ---------------------------------------------------------------------------
+# Ensemble — VARI ∩ / ∪ DeepForest
+# ---------------------------------------------------------------------------
+
+def ensemble_mask(
+    img: np.ndarray,
+    df_model=None,
+    mode: str = "intersection",
+    vari_threshold: float = 0.05,
+    score_threshold: float = 0.3,
+    min_size: int = 500,
+    closing_radius: int = 4,
+) -> np.ndarray:
+    """Tree mask by combining VARI and DeepForest predictions.
+
+    Parameters
+    ----------
+    img : np.ndarray
+        Shape (H, W, 3), dtype uint8, RGB order.
+    df_model : optional
+        Pre-loaded DeepForest model. Loaded on first call if None.
+    mode : str
+        ``"intersection"`` (VARI ∩ DeepForest) — high precision, fewer
+        false positives from grass/shrubs.
+        ``"union"`` (VARI ∪ DeepForest) — high recall, fewer missed crowns.
+    vari_threshold, min_size, closing_radius : float / int
+        Forwarded to vari_mask().
+    score_threshold : float
+        Forwarded to deepforest_mask().
+
+    Returns
+    -------
+    np.ndarray
+        Boolean array of shape (H, W).
+    """
+    vari = vari_mask(img, threshold=vari_threshold, min_size=min_size,
+                     closing_radius=closing_radius)
+    df = deepforest_mask(img, model=df_model, score_threshold=score_threshold,
+                         min_size=min_size, closing_radius=closing_radius)
+    if mode == "intersection":
+        return vari & df
+    return vari | df
 
 
 # ---------------------------------------------------------------------------

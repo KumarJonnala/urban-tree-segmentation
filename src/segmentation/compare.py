@@ -40,7 +40,6 @@ def compare_vegetation(
           "samgeo"       → SamGeo model
           "deeplab"      → deeplab model
         Methods not present in models are loaded on-the-fly (slow).
-        Methods not present in models are loaded on-the-fly (slow).
 
     Returns
     -------
@@ -51,8 +50,10 @@ def compare_vegetation(
     from src.segmentation.vegetation import (
         deepforest_mask,
         deeplab_mask,
+        ensemble_mask,
         samgeo_mask,
         segformer_b5_mask,
+        tcd_segformer_mask,
         vari_mask,
     )
 
@@ -75,6 +76,13 @@ def compare_vegetation(
 
         elif method == "deeplab":
             masks["deeplab"] = deeplab_mask(img, model=models.get("deeplab"))
+
+        elif method == "tcd_segformer":
+            proc, mdl = models.get("tcd_segformer", (None, None))
+            masks["tcd_segformer"] = tcd_segformer_mask(img, processor=proc, model=mdl)
+
+        elif method == "ensemble":
+            masks["ensemble"] = ensemble_mask(img, df_model=models.get("ensemble"))
 
         else:
             raise ValueError(f"Unknown method: {method!r}")

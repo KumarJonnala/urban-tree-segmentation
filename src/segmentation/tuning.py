@@ -9,12 +9,76 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from src.segmentation.compare import _dice
 
-def _dice(a: np.ndarray, b: np.ndarray) -> float:
-    denom = a.sum() + b.sum()
-    if denom == 0:
-        return float("nan")
-    return float(2 * (a & b).sum() / denom)
+
+def tune_vari(
+    img: np.ndarray,
+    reference_mask: np.ndarray,
+    thresholds: tuple = (0.02, 0.05, 0.08, 0.10, 0.15),
+    min_sizes: tuple = (200, 500, 1000, 2000),
+    closing_radii: tuple = (2, 4, 6),
+    out_dir: Path | None = None,
+    stem: str = "vari_tune",
+) -> pd.DataFrame:
+    """Grid-search VARI hyperparameters against a reference mask.
+
+    Parameters
+    ----------
+    img : np.ndarray
+        Shape (H, W, 3), dtype uint8, RGB.
+    reference_mask : np.ndarray
+        Boolean (H, W) reference mask to score against (e.g. deepforest_mask).
+    thresholds : tuple of float
+        VARI threshold values to try.
+    min_sizes : tuple of int
+        Minimum connected-component sizes (pixels) to try.
+    closing_radii : tuple of int
+        Morphological closing disk radii to try.
+    out_dir : Path, optional
+        Save results CSV to out_dir/stem_results.csv.
+    stem : str
+        Filename stem for saved outputs.
+
+    Returns
+    -------
+    pd.DataFrame
+        Sorted by dice_vs_reference descending. Columns:
+        threshold, min_size, closing_radius, coverage_pct, dice_vs_reference.
+    """
+    from src.segmentation.vegetation import vari_mask
+
+    rows = []
+    total = len(thresholds) * len(min_sizes) * len(closing_radii)
+    done = 0
+
+    for threshold in thresholds:
+        for min_size in min_sizes:
+            for closing_radius in closing_radii:
+                done += 1
+                mask = vari_mask(img, threshold=threshold, min_size=min_size,
+                                 closing_radius=closing_radius)
+                rows.append({
+                    "threshold": threshold,
+                    "min_size": min_size,
+                    "closing_radius": closing_radius,
+                    "coverage_pct": round(float(mask.mean() * 100), 2),
+                    "dice_vs_reference": round(_dice(mask, reference_mask), 4),
+                })
+                print(f"  [{done}/{total}] thr={threshold} min_size={min_size} "
+                      f"closing={closing_radius}"
+                      f" → coverage={rows[-1]['coverage_pct']:.1f}%"
+                      f" dice={rows[-1]['dice_vs_reference']:.4f}")
+
+    df = pd.DataFrame(rows).sort_values("dice_vs_reference", ascending=False).reset_index(drop=True)
+
+    if out_dir is not None:
+        out_dir = Path(out_dir)
+        out_dir.mkdir(parents=True, exist_ok=True)
+        df.to_csv(out_dir / f"{stem}_results.csv", index=False)
+        print(f"\nSaved to {out_dir / f'{stem}_results.csv'}")
+
+    return df
 
 
 def tune_deepforest(
@@ -54,7 +118,7 @@ def tune_deepforest(
         Sorted by dice_vs_reference descending. Columns:
         score_threshold, patch_size, patch_overlap, coverage_pct, dice_vs_reference.
     """
-    from src.segmentation.vegetation import deepforest_mask, load_deepforest
+    from src.segmentation.vegetation import load_deepforest
 
     if model is None:
         model = load_deepforest()
@@ -148,11 +212,8 @@ def tune_samgeo(
     if model is None:
         model = load_samgeo()
 
-    # Compute VARI once
-    r = img[:, :, 0].astype(float)
-    g = img[:, :, 1].astype(float)
-    b = img[:, :, 2].astype(float)
-    vari = (g - r) / (g + r - b + 1e-6)
+    from src.segmentation.vegetation import _vari
+    vari = _vari(img)
 
     # Run SAM once — expensive step
     print("  Running SAM automatic mask generation (once)...")
