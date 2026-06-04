@@ -19,6 +19,11 @@ TILE_SIZE_M = 250
 # Default vegetation segmentation model used by segment, shadow, and all subcommands
 DEFAULT_VEGETATION_MODEL = "tcd_segformer"
 
+# Maximum single-tree crown radius (metres) for height estimation.
+# Components exceeding this are watershed-split into individual crowns before
+# applying the allometric formula. 8 m ≈ 200 m² crown area.
+MAX_CROWN_RADIUS_M = 8.0
+
 # Geographic areas to fetch (bounding boxes in WGS84 lat/lon)
 AREAS = {
     "ovgu_bbox": {

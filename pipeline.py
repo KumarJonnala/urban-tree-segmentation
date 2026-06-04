@@ -102,9 +102,8 @@ def cmd_download(dry_run: bool = False) -> None:
 
 def cmd_segment(vegetation_model: str = DEFAULT_VEGETATION_MODEL) -> None:
     from src.shadow.casting import vectorize_trees
-    from src.segmentation import deepforest_crowns_gdf
     seg_dir = OUTPUT_DIR / "segments"
-    model, mask_fn = _load_vegetation_model(vegetation_model)
+    _, mask_fn = _load_vegetation_model(vegetation_model)
 
     for area_name, area in AREAS.items():
         tiles = tiles_for_area(area, TILE_SIZE_M)
@@ -130,10 +129,7 @@ def cmd_segment(vegetation_model: str = DEFAULT_VEGETATION_MODEL) -> None:
                 out_dir=seg_dir, stem=stem,
             )
             print(f"  {base_stem}: saved {npy_path.name}, {png_path.name}")
-            if vegetation_model == "deepforest":
-                tree_gdf = deepforest_crowns_gdf(img, t, model=model)
-            else:
-                tree_gdf = vectorize_trees(tree_mask, t, vegetation_model)
+            tree_gdf = vectorize_trees(tree_mask, t, vegetation_model)
             fgb_path = seg_dir / f"{stem}_trees.fgb"
             tree_gdf.to_file(fgb_path, driver="FlatGeobuf")
             print(f"  {base_stem}: vectorized {len(tree_gdf)} tree(s) → {fgb_path.name}")

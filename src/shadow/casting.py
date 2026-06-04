@@ -11,6 +11,7 @@ from rasterio.transform import from_bounds
 from scipy.ndimage import label as cc_label
 from shapely.geometry import shape as sg_shape
 
+from src.config import MAX_CROWN_RADIUS_M
 from src.shadow.solar import sun_position, _tile_center
 
 _to_utm = Transformer.from_crs("EPSG:4326", "EPSG:25832", always_xy=True)
@@ -51,7 +52,7 @@ def estimate_tree_heights(
     tree_mask: np.ndarray,
     pixel_size_m: float,
     min_component_pixels: int = 50,
-    max_crown_radius_m: float = 8.0,
+    max_crown_radius_m: float = MAX_CROWN_RADIUS_M,
 ) -> tuple[np.ndarray, dict[int, float]]:
     """Estimate per-tree-cluster height from canopy area using an allometric formula.
 
@@ -145,7 +146,7 @@ def vectorize_trees(
     bbox: dict,
     vegetation_model: str,
     min_component_pixels: int = 50,
-    max_crown_radius_m: float = 8.0,
+    max_crown_radius_m: float = MAX_CROWN_RADIUS_M,
 ) -> gpd.GeoDataFrame:
     """Convert a tree mask to georeferenced polygon features in EPSG:25832.
 
@@ -233,7 +234,7 @@ def cast_tree_shadows(
     max_shadow_factor: float = 5.0,
     min_component_pixels: int = 50,
     tree_gdf: gpd.GeoDataFrame | None = None,
-    max_crown_radius_m: float = 8.0,
+    max_crown_radius_m: float = MAX_CROWN_RADIUS_M,
 ) -> np.ndarray:
     """Compute where tree canopies cast shadows given a sun position.
 

@@ -1,6 +1,6 @@
 from src.segmentation.vegetation import (
     vari_mask,
-    deepforest_mask, deepforest_crowns_gdf, load_deepforest,
+    deepforest_mask, load_deepforest,
     samgeo_mask, load_samgeo,
     segformer_b5_mask, load_segformer_b5,
     tcd_segformer_mask, load_tcd_segformer,
