@@ -6,7 +6,7 @@ cache/
 lightning_logs/
 
 # data files
-# data/
+data/
 
 # credentials
 .env

@@ -7,14 +7,30 @@ from src.data_preprocessing.fetcher import fetch_and_save
 from src.data_preprocessing.tiling import tiles_for_area
 
 
+def fetch_full_area_image(area_name, width=IMAGE_WIDTH, height=IMAGE_HEIGHT, output_root=None):
+    """Fetch the entire area bbox as a single overview PNG (pre-tiled image).
+
+    Saved to OUTPUT_DIR/{area_name}/{area_name}_full.png at the requested pixel dimensions.
+    """
+    if area_name not in AREAS:
+        raise KeyError(area_name)
+    out_root = Path(output_root) if output_root else OUTPUT_DIR
+    out_dir = out_root / area_name
+    out_dir.mkdir(parents=True, exist_ok=True)
+    return fetch_and_save(AREAS[area_name], f"{area_name}_full.png", out_dir, width=width, height=height)
+
+
 def fetch_area_grid(area_name, tile_size_m=None, width=IMAGE_WIDTH, height=IMAGE_HEIGHT, output_root=None, fetch=True, max_tiles=None):
-    """Download all tiles for area_name; returns list of saved paths (empty if fetch=False)."""
+    """Download all tiles for area_name; returns list of saved paths (empty if fetch=False).
+
+    Tiles are saved under OUTPUT_DIR/{area_name}/{tile_size}m/.
+    """
     if area_name not in AREAS:
         raise KeyError(area_name)
     area = AREAS[area_name]
     tile_size = tile_size_m or TILE_SIZE_M
     out_root = Path(output_root) if output_root else OUTPUT_DIR
-    out_dir = out_root / area_name
+    out_dir = out_root / area_name / f"{tile_size}m"
     out_dir.mkdir(parents=True, exist_ok=True)
     tiles = tiles_for_area(area, tile_size)
     saved = []
