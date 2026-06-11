@@ -1,18 +1,14 @@
 #!/bin/bash
-
-# Usage examples:
 #
-#   sbatch slurm_urban_shadow.sh                                           # full pipeline @ 250m
-#   sbatch --export=COMMAND=all,TILE_SIZE=all       slurm_urban_shadow.sh  # full pipeline all sizes [100,250,500,1000]
-#   sbatch --export=COMMAND=download,TILE_SIZE=all  slurm_urban_shadow.sh  # download all sizes
-#   sbatch --export=COMMAND=segment,TILE_SIZE=all   slurm_urban_shadow.sh  # segment all sizes
-#   sbatch --export=COMMAND=shadow,TILE_SIZE=all    slurm_urban_shadow.sh  # shadow all sizes
-#   sbatch --export=COMMAND=download,TILE_SIZE=100  slurm_urban_shadow.sh  # download 100m only
-#   sbatch --export=COMMAND=segment,TILE_SIZE=250   slurm_urban_shadow.sh  # segment 250m only
-#   sbatch --export=COMMAND=shadow,TILE_SIZE=500    slurm_urban_shadow.sh  # shadow 500m only
-#   sbatch --export=COMMAND=merge,TILE_SIZE=250     slurm_urban_shadow.sh  # merge FGBs at 250m
-#   sbatch --export=COMMAND=render,TILE_SIZE=250    slurm_urban_shadow.sh  # render merged view
-#   sbatch --export=COMMAND=status                  slurm_urban_shadow.sh  # check progress
+# Examples:
+#   sbatch slurm_urban_shadow.sh
+#   sbatch --export=COMMAND=all,TILE_SIZE=all                                        slurm_urban_shadow.sh
+#   sbatch --export=COMMAND=shadow,TILE_SIZE=250,DATETIME="2026-06-21T10:00:00"      slurm_urban_shadow.sh
+#   sbatch --export=COMMAND=shadow,TILE_SIZE=all,DATETIME="2026-06-21T12:00:00"      slurm_urban_shadow.sh
+#   sbatch --export=COMMAND=segment,TILE_SIZE=100                                    slurm_urban_shadow.sh
+#   sbatch --export=COMMAND=merge,TILE_SIZE=250                                      slurm_urban_shadow.sh
+#   sbatch --export=COMMAND=render,TILE_SIZE=250                                     slurm_urban_shadow.sh
+#   sbatch --export=COMMAND=status                                                   slurm_urban_shadow.sh
 #
 
 #SBATCH --job-name=urban_shadow
@@ -37,18 +33,27 @@ pip install -q -r requirements.txt
 # Edit TILE_SIZE and COMMAND below, or pass as sbatch --export= variables
 TILE_SIZE=${TILE_SIZE:-250}
 COMMAND=${COMMAND:-all}
+DATETIME=${DATETIME:-}          # e.g. "2026-06-21T10:00:00"  (UTC); empty = now
 
 echo "Starting urban-shadow-analysis pipeline"
 echo "  Command   : $COMMAND"
-echo "  Tile size : ${TILE_SIZE}m"
+echo "  Tile size : ${TILE_SIZE}"
+echo "  Datetime  : ${DATETIME:-now (UTC)}"
 echo "  Node      : $SLURMD_NODENAME"
 echo "  Job ID    : $SLURM_JOB_ID"
 echo "  Time      : $(date -u '+%Y-%m-%d %H:%M UTC')"
 
+# Build argument list
+ARGS=()
 if [ "$TILE_SIZE" = "all" ]; then
-    python3 pipeline.py "$COMMAND" --all-sizes
+    ARGS+=(--all-sizes)
 else
-    python3 pipeline.py "$COMMAND" --tile-size "$TILE_SIZE"
+    ARGS+=(--tile-size "$TILE_SIZE")
 fi
+if [ -n "$DATETIME" ]; then
+    ARGS+=(--datetime-utc "$DATETIME")
+fi
+
+python3 pipeline.py "$COMMAND" "${ARGS[@]}"
 
 echo "Done: $(date -u '+%Y-%m-%d %H:%M UTC')"
