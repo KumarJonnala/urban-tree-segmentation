@@ -1,0 +1,606 @@
+Starting urban-shadow-analysis pipeline
+  Command   : all
+  Tile size : all
+  Datetime  : 2026-06-21T10:00:00
+  Node      : ant1
+  Job ID    : 1594699
+  Time      : 2026-06-11 18:40 UTC
+Fetching ovgu_bbox_full.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/ovgu_bbox_full.png (3333.8 KB)
+
+--- ovgu_bbox: full-area image → ovgu_bbox_full.png ---
+
+--- ovgu_bbox @ 100m: 90 tile(s) ---
+Fetching ovgu_bbox_tile_0_0.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_0_0.png (739.9 KB)
+Fetching ovgu_bbox_tile_0_1.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_0_1.png (749.7 KB)
+Fetching ovgu_bbox_tile_0_2.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_0_2.png (758.6 KB)
+Fetching ovgu_bbox_tile_0_3.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_0_3.png (772.7 KB)
+Fetching ovgu_bbox_tile_0_4.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_0_4.png (742.9 KB)
+Fetching ovgu_bbox_tile_0_5.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_0_5.png (753.1 KB)
+Fetching ovgu_bbox_tile_0_6.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_0_6.png (759.6 KB)
+Fetching ovgu_bbox_tile_0_7.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_0_7.png (751.4 KB)
+Fetching ovgu_bbox_tile_0_8.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_0_8.png (747.8 KB)
+Fetching ovgu_bbox_tile_0_9.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_0_9.png (91.0 KB)
+Fetching ovgu_bbox_tile_1_0.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_1_0.png (748.3 KB)
+Fetching ovgu_bbox_tile_1_1.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_1_1.png (747.5 KB)
+Fetching ovgu_bbox_tile_1_2.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_1_2.png (748.4 KB)
+Fetching ovgu_bbox_tile_1_3.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_1_3.png (764.8 KB)
+Fetching ovgu_bbox_tile_1_4.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_1_4.png (735.3 KB)
+Fetching ovgu_bbox_tile_1_5.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_1_5.png (733.2 KB)
+Fetching ovgu_bbox_tile_1_6.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_1_6.png (738.5 KB)
+Fetching ovgu_bbox_tile_1_7.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_1_7.png (744.9 KB)
+Fetching ovgu_bbox_tile_1_8.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_1_8.png (724.0 KB)
+Fetching ovgu_bbox_tile_1_9.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_1_9.png (88.1 KB)
+Fetching ovgu_bbox_tile_2_0.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_2_0.png (742.9 KB)
+Fetching ovgu_bbox_tile_2_1.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_2_1.png (728.6 KB)
+Fetching ovgu_bbox_tile_2_2.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_2_2.png (744.3 KB)
+Fetching ovgu_bbox_tile_2_3.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_2_3.png (740.6 KB)
+Fetching ovgu_bbox_tile_2_4.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_2_4.png (713.4 KB)
+Fetching ovgu_bbox_tile_2_5.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_2_5.png (712.9 KB)
+Fetching ovgu_bbox_tile_2_6.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_2_6.png (704.7 KB)
+Fetching ovgu_bbox_tile_2_7.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_2_7.png (754.8 KB)
+Fetching ovgu_bbox_tile_2_8.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_2_8.png (758.1 KB)
+Fetching ovgu_bbox_tile_2_9.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_2_9.png (87.7 KB)
+Fetching ovgu_bbox_tile_3_0.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_3_0.png (773.5 KB)
+Fetching ovgu_bbox_tile_3_1.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_3_1.png (739.0 KB)
+Fetching ovgu_bbox_tile_3_2.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_3_2.png (776.2 KB)
+Fetching ovgu_bbox_tile_3_3.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_3_3.png (749.5 KB)
+Fetching ovgu_bbox_tile_3_4.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_3_4.png (707.1 KB)
+Fetching ovgu_bbox_tile_3_5.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_3_5.png (712.5 KB)
+Fetching ovgu_bbox_tile_3_6.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_3_6.png (719.2 KB)
+Fetching ovgu_bbox_tile_3_7.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_3_7.png (743.7 KB)
+Fetching ovgu_bbox_tile_3_8.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_3_8.png (755.7 KB)
+Fetching ovgu_bbox_tile_3_9.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_3_9.png (88.4 KB)
+Fetching ovgu_bbox_tile_4_0.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_4_0.png (744.2 KB)
+Fetching ovgu_bbox_tile_4_1.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_4_1.png (754.6 KB)
+Fetching ovgu_bbox_tile_4_2.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_4_2.png (759.4 KB)
+Fetching ovgu_bbox_tile_4_3.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_4_3.png (765.0 KB)
+Fetching ovgu_bbox_tile_4_4.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_4_4.png (699.8 KB)
+Fetching ovgu_bbox_tile_4_5.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_4_5.png (702.1 KB)
+Fetching ovgu_bbox_tile_4_6.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_4_6.png (715.7 KB)
+Fetching ovgu_bbox_tile_4_7.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_4_7.png (718.9 KB)
+Fetching ovgu_bbox_tile_4_8.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_4_8.png (748.5 KB)
+Fetching ovgu_bbox_tile_4_9.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_4_9.png (89.3 KB)
+Fetching ovgu_bbox_tile_5_0.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_5_0.png (737.0 KB)
+Fetching ovgu_bbox_tile_5_1.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_5_1.png (754.9 KB)
+Fetching ovgu_bbox_tile_5_2.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_5_2.png (770.2 KB)
+Fetching ovgu_bbox_tile_5_3.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_5_3.png (770.0 KB)
+Fetching ovgu_bbox_tile_5_4.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_5_4.png (757.3 KB)
+Fetching ovgu_bbox_tile_5_5.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_5_5.png (759.9 KB)
+Fetching ovgu_bbox_tile_5_6.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_5_6.png (749.1 KB)
+Fetching ovgu_bbox_tile_5_7.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_5_7.png (764.1 KB)
+Fetching ovgu_bbox_tile_5_8.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_5_8.png (742.8 KB)
+Fetching ovgu_bbox_tile_5_9.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_5_9.png (91.6 KB)
+Fetching ovgu_bbox_tile_6_0.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_6_0.png (739.9 KB)
+Fetching ovgu_bbox_tile_6_1.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_6_1.png (734.3 KB)
+Fetching ovgu_bbox_tile_6_2.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_6_2.png (742.4 KB)
+Fetching ovgu_bbox_tile_6_3.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_6_3.png (735.1 KB)
+Fetching ovgu_bbox_tile_6_4.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_6_4.png (757.5 KB)
+Fetching ovgu_bbox_tile_6_5.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_6_5.png (756.4 KB)
+Fetching ovgu_bbox_tile_6_6.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_6_6.png (771.0 KB)
+Fetching ovgu_bbox_tile_6_7.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_6_7.png (770.3 KB)
+Fetching ovgu_bbox_tile_6_8.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_6_8.png (747.0 KB)
+Fetching ovgu_bbox_tile_6_9.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_6_9.png (87.9 KB)
+Fetching ovgu_bbox_tile_7_0.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_7_0.png (751.7 KB)
+Fetching ovgu_bbox_tile_7_1.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_7_1.png (751.5 KB)
+Fetching ovgu_bbox_tile_7_2.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_7_2.png (762.9 KB)
+Fetching ovgu_bbox_tile_7_3.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_7_3.png (759.1 KB)
+Fetching ovgu_bbox_tile_7_4.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_7_4.png (780.2 KB)
+Fetching ovgu_bbox_tile_7_5.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_7_5.png (768.0 KB)
+Fetching ovgu_bbox_tile_7_6.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_7_6.png (772.9 KB)
+Fetching ovgu_bbox_tile_7_7.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_7_7.png (756.8 KB)
+Fetching ovgu_bbox_tile_7_8.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_7_8.png (755.1 KB)
+Fetching ovgu_bbox_tile_7_9.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_7_9.png (94.0 KB)
+Fetching ovgu_bbox_tile_8_0.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_8_0.png (436.5 KB)
+Fetching ovgu_bbox_tile_8_1.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_8_1.png (452.1 KB)
+Fetching ovgu_bbox_tile_8_2.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_8_2.png (435.9 KB)
+Fetching ovgu_bbox_tile_8_3.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_8_3.png (424.1 KB)
+Fetching ovgu_bbox_tile_8_4.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_8_4.png (441.7 KB)
+Fetching ovgu_bbox_tile_8_5.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_8_5.png (451.4 KB)
+Fetching ovgu_bbox_tile_8_6.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_8_6.png (435.8 KB)
+Fetching ovgu_bbox_tile_8_7.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_8_7.png (427.5 KB)
+Fetching ovgu_bbox_tile_8_8.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_8_8.png (435.1 KB)
+Fetching ovgu_bbox_tile_8_9.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/100m/ovgu_bbox_tile_8_9.png (61.2 KB)
+  90 tile(s) saved
+
+--- ovgu_bbox @ 250m: 16 tile(s) ---
+Fetching ovgu_bbox_tile_0_0.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/250m/ovgu_bbox_tile_0_0.png (3222.9 KB)
+Fetching ovgu_bbox_tile_0_1.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/250m/ovgu_bbox_tile_0_1.png (3294.8 KB)
+Fetching ovgu_bbox_tile_0_2.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/250m/ovgu_bbox_tile_0_2.png (3232.1 KB)
+Fetching ovgu_bbox_tile_0_3.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/250m/ovgu_bbox_tile_0_3.png (2174.9 KB)
+Fetching ovgu_bbox_tile_1_0.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/250m/ovgu_bbox_tile_1_0.png (3310.6 KB)
+Fetching ovgu_bbox_tile_1_1.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/250m/ovgu_bbox_tile_1_1.png (3168.9 KB)
+Fetching ovgu_bbox_tile_1_2.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/250m/ovgu_bbox_tile_1_2.png (2985.7 KB)
+Fetching ovgu_bbox_tile_1_3.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/250m/ovgu_bbox_tile_1_3.png (2194.5 KB)
+Fetching ovgu_bbox_tile_2_0.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/250m/ovgu_bbox_tile_2_0.png (3251.7 KB)
+Fetching ovgu_bbox_tile_2_1.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/250m/ovgu_bbox_tile_2_1.png (3328.5 KB)
+Fetching ovgu_bbox_tile_2_2.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/250m/ovgu_bbox_tile_2_2.png (3375.7 KB)
+Fetching ovgu_bbox_tile_2_3.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/250m/ovgu_bbox_tile_2_3.png (2191.3 KB)
+Fetching ovgu_bbox_tile_3_0.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/250m/ovgu_bbox_tile_3_0.png (1849.5 KB)
+Fetching ovgu_bbox_tile_3_1.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/250m/ovgu_bbox_tile_3_1.png (1848.3 KB)
+Fetching ovgu_bbox_tile_3_2.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/250m/ovgu_bbox_tile_3_2.png (1857.7 KB)
+Fetching ovgu_bbox_tile_3_3.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/250m/ovgu_bbox_tile_3_3.png (1226.2 KB)
+  16 tile(s) saved
+
+--- ovgu_bbox @ 500m: 4 tile(s) ---
+Fetching ovgu_bbox_tile_0_0.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/500m/ovgu_bbox_tile_0_0.png (3082.2 KB)
+Fetching ovgu_bbox_tile_0_1.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/500m/ovgu_bbox_tile_0_1.png (2584.6 KB)
+Fetching ovgu_bbox_tile_1_0.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/500m/ovgu_bbox_tile_1_0.png (3444.8 KB)
+Fetching ovgu_bbox_tile_1_1.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/500m/ovgu_bbox_tile_1_1.png (3452.2 KB)
+  4 tile(s) saved
+
+--- ovgu_bbox @ 1000m: 1 tile(s) ---
+Fetching ovgu_bbox_tile_0_0.png ...
+  Saved /home/bumu60du/HiWi1/urban-shadow-analysis/data/orthophotos/ovgu_bbox/1000m/ovgu_bbox_tile_0_0.png (3333.8 KB)
+  1 tile(s) saved
+  Loading TCD SegFormer (restor/tcd-segformer-mit-b5)...
+  OSM: 261 buildings, 1078 roads
+
+--- ovgu_bbox @ 100m: segmenting 90 tile(s) [tcd_segformer] ---
+  ovgu_bbox_tile_0_0: saved ovgu_bbox_tile_0_0_tcd_segformer_seg.npy, ovgu_bbox_tile_0_0_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_0_0: vectorized 14 tree(s) → ovgu_bbox_tile_0_0_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_0_1: saved ovgu_bbox_tile_0_1_tcd_segformer_seg.npy, ovgu_bbox_tile_0_1_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_0_1: vectorized 12 tree(s) → ovgu_bbox_tile_0_1_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_0_2: saved ovgu_bbox_tile_0_2_tcd_segformer_seg.npy, ovgu_bbox_tile_0_2_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_0_2: vectorized 22 tree(s) → ovgu_bbox_tile_0_2_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_0_3: saved ovgu_bbox_tile_0_3_tcd_segformer_seg.npy, ovgu_bbox_tile_0_3_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_0_3: vectorized 20 tree(s) → ovgu_bbox_tile_0_3_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_0_4: saved ovgu_bbox_tile_0_4_tcd_segformer_seg.npy, ovgu_bbox_tile_0_4_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_0_4: vectorized 26 tree(s) → ovgu_bbox_tile_0_4_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_0_5: saved ovgu_bbox_tile_0_5_tcd_segformer_seg.npy, ovgu_bbox_tile_0_5_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_0_5: vectorized 22 tree(s) → ovgu_bbox_tile_0_5_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_0_6: saved ovgu_bbox_tile_0_6_tcd_segformer_seg.npy, ovgu_bbox_tile_0_6_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_0_6: vectorized 12 tree(s) → ovgu_bbox_tile_0_6_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_0_7: saved ovgu_bbox_tile_0_7_tcd_segformer_seg.npy, ovgu_bbox_tile_0_7_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_0_7: vectorized 14 tree(s) → ovgu_bbox_tile_0_7_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_0_8: saved ovgu_bbox_tile_0_8_tcd_segformer_seg.npy, ovgu_bbox_tile_0_8_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_0_8: vectorized 32 tree(s) → ovgu_bbox_tile_0_8_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_0_9: saved ovgu_bbox_tile_0_9_tcd_segformer_seg.npy, ovgu_bbox_tile_0_9_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_0_9: vectorized 0 tree(s) → ovgu_bbox_tile_0_9_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_1_0: saved ovgu_bbox_tile_1_0_tcd_segformer_seg.npy, ovgu_bbox_tile_1_0_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_1_0: vectorized 13 tree(s) → ovgu_bbox_tile_1_0_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_1_1: saved ovgu_bbox_tile_1_1_tcd_segformer_seg.npy, ovgu_bbox_tile_1_1_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_1_1: vectorized 17 tree(s) → ovgu_bbox_tile_1_1_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_1_2: saved ovgu_bbox_tile_1_2_tcd_segformer_seg.npy, ovgu_bbox_tile_1_2_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_1_2: vectorized 20 tree(s) → ovgu_bbox_tile_1_2_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_1_3: saved ovgu_bbox_tile_1_3_tcd_segformer_seg.npy, ovgu_bbox_tile_1_3_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_1_3: vectorized 17 tree(s) → ovgu_bbox_tile_1_3_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_1_4: saved ovgu_bbox_tile_1_4_tcd_segformer_seg.npy, ovgu_bbox_tile_1_4_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_1_4: vectorized 16 tree(s) → ovgu_bbox_tile_1_4_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_1_5: saved ovgu_bbox_tile_1_5_tcd_segformer_seg.npy, ovgu_bbox_tile_1_5_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_1_5: vectorized 21 tree(s) → ovgu_bbox_tile_1_5_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_1_6: saved ovgu_bbox_tile_1_6_tcd_segformer_seg.npy, ovgu_bbox_tile_1_6_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_1_6: vectorized 14 tree(s) → ovgu_bbox_tile_1_6_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_1_7: saved ovgu_bbox_tile_1_7_tcd_segformer_seg.npy, ovgu_bbox_tile_1_7_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_1_7: vectorized 17 tree(s) → ovgu_bbox_tile_1_7_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_1_8: saved ovgu_bbox_tile_1_8_tcd_segformer_seg.npy, ovgu_bbox_tile_1_8_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_1_8: vectorized 23 tree(s) → ovgu_bbox_tile_1_8_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_1_9: saved ovgu_bbox_tile_1_9_tcd_segformer_seg.npy, ovgu_bbox_tile_1_9_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_1_9: vectorized 0 tree(s) → ovgu_bbox_tile_1_9_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_2_0: saved ovgu_bbox_tile_2_0_tcd_segformer_seg.npy, ovgu_bbox_tile_2_0_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_2_0: vectorized 10 tree(s) → ovgu_bbox_tile_2_0_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_2_1: saved ovgu_bbox_tile_2_1_tcd_segformer_seg.npy, ovgu_bbox_tile_2_1_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_2_1: vectorized 16 tree(s) → ovgu_bbox_tile_2_1_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_2_2: saved ovgu_bbox_tile_2_2_tcd_segformer_seg.npy, ovgu_bbox_tile_2_2_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_2_2: vectorized 26 tree(s) → ovgu_bbox_tile_2_2_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_2_3: saved ovgu_bbox_tile_2_3_tcd_segformer_seg.npy, ovgu_bbox_tile_2_3_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_2_3: vectorized 22 tree(s) → ovgu_bbox_tile_2_3_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_2_4: saved ovgu_bbox_tile_2_4_tcd_segformer_seg.npy, ovgu_bbox_tile_2_4_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_2_4: vectorized 14 tree(s) → ovgu_bbox_tile_2_4_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_2_5: saved ovgu_bbox_tile_2_5_tcd_segformer_seg.npy, ovgu_bbox_tile_2_5_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_2_5: vectorized 13 tree(s) → ovgu_bbox_tile_2_5_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_2_6: saved ovgu_bbox_tile_2_6_tcd_segformer_seg.npy, ovgu_bbox_tile_2_6_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_2_6: vectorized 10 tree(s) → ovgu_bbox_tile_2_6_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_2_7: saved ovgu_bbox_tile_2_7_tcd_segformer_seg.npy, ovgu_bbox_tile_2_7_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_2_7: vectorized 12 tree(s) → ovgu_bbox_tile_2_7_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_2_8: saved ovgu_bbox_tile_2_8_tcd_segformer_seg.npy, ovgu_bbox_tile_2_8_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_2_8: vectorized 18 tree(s) → ovgu_bbox_tile_2_8_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_2_9: saved ovgu_bbox_tile_2_9_tcd_segformer_seg.npy, ovgu_bbox_tile_2_9_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_2_9: vectorized 0 tree(s) → ovgu_bbox_tile_2_9_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_3_0: saved ovgu_bbox_tile_3_0_tcd_segformer_seg.npy, ovgu_bbox_tile_3_0_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_3_0: vectorized 17 tree(s) → ovgu_bbox_tile_3_0_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_3_1: saved ovgu_bbox_tile_3_1_tcd_segformer_seg.npy, ovgu_bbox_tile_3_1_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_3_1: vectorized 9 tree(s) → ovgu_bbox_tile_3_1_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_3_2: saved ovgu_bbox_tile_3_2_tcd_segformer_seg.npy, ovgu_bbox_tile_3_2_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_3_2: vectorized 25 tree(s) → ovgu_bbox_tile_3_2_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_3_3: saved ovgu_bbox_tile_3_3_tcd_segformer_seg.npy, ovgu_bbox_tile_3_3_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_3_3: vectorized 23 tree(s) → ovgu_bbox_tile_3_3_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_3_4: saved ovgu_bbox_tile_3_4_tcd_segformer_seg.npy, ovgu_bbox_tile_3_4_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_3_4: vectorized 27 tree(s) → ovgu_bbox_tile_3_4_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_3_5: saved ovgu_bbox_tile_3_5_tcd_segformer_seg.npy, ovgu_bbox_tile_3_5_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_3_5: vectorized 20 tree(s) → ovgu_bbox_tile_3_5_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_3_6: saved ovgu_bbox_tile_3_6_tcd_segformer_seg.npy, ovgu_bbox_tile_3_6_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_3_6: vectorized 12 tree(s) → ovgu_bbox_tile_3_6_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_3_7: saved ovgu_bbox_tile_3_7_tcd_segformer_seg.npy, ovgu_bbox_tile_3_7_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_3_7: vectorized 21 tree(s) → ovgu_bbox_tile_3_7_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_3_8: saved ovgu_bbox_tile_3_8_tcd_segformer_seg.npy, ovgu_bbox_tile_3_8_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_3_8: vectorized 20 tree(s) → ovgu_bbox_tile_3_8_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_3_9: saved ovgu_bbox_tile_3_9_tcd_segformer_seg.npy, ovgu_bbox_tile_3_9_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_3_9: vectorized 0 tree(s) → ovgu_bbox_tile_3_9_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_4_0: saved ovgu_bbox_tile_4_0_tcd_segformer_seg.npy, ovgu_bbox_tile_4_0_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_4_0: vectorized 13 tree(s) → ovgu_bbox_tile_4_0_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_4_1: saved ovgu_bbox_tile_4_1_tcd_segformer_seg.npy, ovgu_bbox_tile_4_1_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_4_1: vectorized 24 tree(s) → ovgu_bbox_tile_4_1_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_4_2: saved ovgu_bbox_tile_4_2_tcd_segformer_seg.npy, ovgu_bbox_tile_4_2_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_4_2: vectorized 25 tree(s) → ovgu_bbox_tile_4_2_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_4_3: saved ovgu_bbox_tile_4_3_tcd_segformer_seg.npy, ovgu_bbox_tile_4_3_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_4_3: vectorized 22 tree(s) → ovgu_bbox_tile_4_3_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_4_4: saved ovgu_bbox_tile_4_4_tcd_segformer_seg.npy, ovgu_bbox_tile_4_4_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_4_4: vectorized 12 tree(s) → ovgu_bbox_tile_4_4_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_4_5: saved ovgu_bbox_tile_4_5_tcd_segformer_seg.npy, ovgu_bbox_tile_4_5_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_4_5: vectorized 16 tree(s) → ovgu_bbox_tile_4_5_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_4_6: saved ovgu_bbox_tile_4_6_tcd_segformer_seg.npy, ovgu_bbox_tile_4_6_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_4_6: vectorized 33 tree(s) → ovgu_bbox_tile_4_6_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_4_7: saved ovgu_bbox_tile_4_7_tcd_segformer_seg.npy, ovgu_bbox_tile_4_7_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_4_7: vectorized 11 tree(s) → ovgu_bbox_tile_4_7_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_4_8: saved ovgu_bbox_tile_4_8_tcd_segformer_seg.npy, ovgu_bbox_tile_4_8_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_4_8: vectorized 19 tree(s) → ovgu_bbox_tile_4_8_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_4_9: saved ovgu_bbox_tile_4_9_tcd_segformer_seg.npy, ovgu_bbox_tile_4_9_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_4_9: vectorized 0 tree(s) → ovgu_bbox_tile_4_9_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_5_0: saved ovgu_bbox_tile_5_0_tcd_segformer_seg.npy, ovgu_bbox_tile_5_0_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_5_0: vectorized 16 tree(s) → ovgu_bbox_tile_5_0_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_5_1: saved ovgu_bbox_tile_5_1_tcd_segformer_seg.npy, ovgu_bbox_tile_5_1_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_5_1: vectorized 14 tree(s) → ovgu_bbox_tile_5_1_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_5_2: saved ovgu_bbox_tile_5_2_tcd_segformer_seg.npy, ovgu_bbox_tile_5_2_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_5_2: vectorized 13 tree(s) → ovgu_bbox_tile_5_2_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_5_3: saved ovgu_bbox_tile_5_3_tcd_segformer_seg.npy, ovgu_bbox_tile_5_3_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_5_3: vectorized 17 tree(s) → ovgu_bbox_tile_5_3_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_5_4: saved ovgu_bbox_tile_5_4_tcd_segformer_seg.npy, ovgu_bbox_tile_5_4_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_5_4: vectorized 15 tree(s) → ovgu_bbox_tile_5_4_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_5_5: saved ovgu_bbox_tile_5_5_tcd_segformer_seg.npy, ovgu_bbox_tile_5_5_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_5_5: vectorized 16 tree(s) → ovgu_bbox_tile_5_5_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_5_6: saved ovgu_bbox_tile_5_6_tcd_segformer_seg.npy, ovgu_bbox_tile_5_6_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_5_6: vectorized 10 tree(s) → ovgu_bbox_tile_5_6_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_5_7: saved ovgu_bbox_tile_5_7_tcd_segformer_seg.npy, ovgu_bbox_tile_5_7_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_5_7: vectorized 11 tree(s) → ovgu_bbox_tile_5_7_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_5_8: saved ovgu_bbox_tile_5_8_tcd_segformer_seg.npy, ovgu_bbox_tile_5_8_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_5_8: vectorized 44 tree(s) → ovgu_bbox_tile_5_8_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_5_9: saved ovgu_bbox_tile_5_9_tcd_segformer_seg.npy, ovgu_bbox_tile_5_9_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_5_9: vectorized 0 tree(s) → ovgu_bbox_tile_5_9_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_6_0: saved ovgu_bbox_tile_6_0_tcd_segformer_seg.npy, ovgu_bbox_tile_6_0_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_6_0: vectorized 22 tree(s) → ovgu_bbox_tile_6_0_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_6_1: saved ovgu_bbox_tile_6_1_tcd_segformer_seg.npy, ovgu_bbox_tile_6_1_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_6_1: vectorized 25 tree(s) → ovgu_bbox_tile_6_1_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_6_2: saved ovgu_bbox_tile_6_2_tcd_segformer_seg.npy, ovgu_bbox_tile_6_2_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_6_2: vectorized 14 tree(s) → ovgu_bbox_tile_6_2_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_6_3: saved ovgu_bbox_tile_6_3_tcd_segformer_seg.npy, ovgu_bbox_tile_6_3_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_6_3: vectorized 22 tree(s) → ovgu_bbox_tile_6_3_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_6_4: saved ovgu_bbox_tile_6_4_tcd_segformer_seg.npy, ovgu_bbox_tile_6_4_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_6_4: vectorized 17 tree(s) → ovgu_bbox_tile_6_4_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_6_5: saved ovgu_bbox_tile_6_5_tcd_segformer_seg.npy, ovgu_bbox_tile_6_5_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_6_5: vectorized 16 tree(s) → ovgu_bbox_tile_6_5_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_6_6: saved ovgu_bbox_tile_6_6_tcd_segformer_seg.npy, ovgu_bbox_tile_6_6_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_6_6: vectorized 16 tree(s) → ovgu_bbox_tile_6_6_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_6_7: saved ovgu_bbox_tile_6_7_tcd_segformer_seg.npy, ovgu_bbox_tile_6_7_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_6_7: vectorized 15 tree(s) → ovgu_bbox_tile_6_7_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_6_8: saved ovgu_bbox_tile_6_8_tcd_segformer_seg.npy, ovgu_bbox_tile_6_8_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_6_8: vectorized 19 tree(s) → ovgu_bbox_tile_6_8_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_6_9: saved ovgu_bbox_tile_6_9_tcd_segformer_seg.npy, ovgu_bbox_tile_6_9_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_6_9: vectorized 0 tree(s) → ovgu_bbox_tile_6_9_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_7_0: saved ovgu_bbox_tile_7_0_tcd_segformer_seg.npy, ovgu_bbox_tile_7_0_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_7_0: vectorized 37 tree(s) → ovgu_bbox_tile_7_0_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_7_1: saved ovgu_bbox_tile_7_1_tcd_segformer_seg.npy, ovgu_bbox_tile_7_1_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_7_1: vectorized 22 tree(s) → ovgu_bbox_tile_7_1_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_7_2: saved ovgu_bbox_tile_7_2_tcd_segformer_seg.npy, ovgu_bbox_tile_7_2_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_7_2: vectorized 15 tree(s) → ovgu_bbox_tile_7_2_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_7_3: saved ovgu_bbox_tile_7_3_tcd_segformer_seg.npy, ovgu_bbox_tile_7_3_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_7_3: vectorized 19 tree(s) → ovgu_bbox_tile_7_3_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_7_4: saved ovgu_bbox_tile_7_4_tcd_segformer_seg.npy, ovgu_bbox_tile_7_4_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_7_4: vectorized 24 tree(s) → ovgu_bbox_tile_7_4_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_7_5: saved ovgu_bbox_tile_7_5_tcd_segformer_seg.npy, ovgu_bbox_tile_7_5_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_7_5: vectorized 6 tree(s) → ovgu_bbox_tile_7_5_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_7_6: saved ovgu_bbox_tile_7_6_tcd_segformer_seg.npy, ovgu_bbox_tile_7_6_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_7_6: vectorized 11 tree(s) → ovgu_bbox_tile_7_6_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_7_7: saved ovgu_bbox_tile_7_7_tcd_segformer_seg.npy, ovgu_bbox_tile_7_7_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_7_7: vectorized 17 tree(s) → ovgu_bbox_tile_7_7_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_7_8: saved ovgu_bbox_tile_7_8_tcd_segformer_seg.npy, ovgu_bbox_tile_7_8_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_7_8: vectorized 11 tree(s) → ovgu_bbox_tile_7_8_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_7_9: saved ovgu_bbox_tile_7_9_tcd_segformer_seg.npy, ovgu_bbox_tile_7_9_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_7_9: vectorized 0 tree(s) → ovgu_bbox_tile_7_9_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_8_0: saved ovgu_bbox_tile_8_0_tcd_segformer_seg.npy, ovgu_bbox_tile_8_0_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_8_0: vectorized 10 tree(s) → ovgu_bbox_tile_8_0_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_8_1: saved ovgu_bbox_tile_8_1_tcd_segformer_seg.npy, ovgu_bbox_tile_8_1_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_8_1: vectorized 16 tree(s) → ovgu_bbox_tile_8_1_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_8_2: saved ovgu_bbox_tile_8_2_tcd_segformer_seg.npy, ovgu_bbox_tile_8_2_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_8_2: vectorized 3 tree(s) → ovgu_bbox_tile_8_2_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_8_3: saved ovgu_bbox_tile_8_3_tcd_segformer_seg.npy, ovgu_bbox_tile_8_3_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_8_3: vectorized 8 tree(s) → ovgu_bbox_tile_8_3_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_8_4: saved ovgu_bbox_tile_8_4_tcd_segformer_seg.npy, ovgu_bbox_tile_8_4_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_8_4: vectorized 14 tree(s) → ovgu_bbox_tile_8_4_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_8_5: saved ovgu_bbox_tile_8_5_tcd_segformer_seg.npy, ovgu_bbox_tile_8_5_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_8_5: vectorized 12 tree(s) → ovgu_bbox_tile_8_5_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_8_6: saved ovgu_bbox_tile_8_6_tcd_segformer_seg.npy, ovgu_bbox_tile_8_6_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_8_6: vectorized 5 tree(s) → ovgu_bbox_tile_8_6_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_8_7: saved ovgu_bbox_tile_8_7_tcd_segformer_seg.npy, ovgu_bbox_tile_8_7_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_8_7: vectorized 8 tree(s) → ovgu_bbox_tile_8_7_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_8_8: saved ovgu_bbox_tile_8_8_tcd_segformer_seg.npy, ovgu_bbox_tile_8_8_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_8_8: vectorized 12 tree(s) → ovgu_bbox_tile_8_8_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_8_9: saved ovgu_bbox_tile_8_9_tcd_segformer_seg.npy, ovgu_bbox_tile_8_9_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_8_9: vectorized 0 tree(s) → ovgu_bbox_tile_8_9_tcd_segformer_trees.fgb
+  merged → ovgu_bbox_tcd_segformer_trees_merged.fgb
+
+--- ovgu_bbox @ 250m: segmenting 16 tile(s) [tcd_segformer] ---
+  ovgu_bbox_tile_0_0: saved ovgu_bbox_tile_0_0_tcd_segformer_seg.npy, ovgu_bbox_tile_0_0_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_0_0: vectorized 57 tree(s) → ovgu_bbox_tile_0_0_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_0_1: saved ovgu_bbox_tile_0_1_tcd_segformer_seg.npy, ovgu_bbox_tile_0_1_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_0_1: vectorized 82 tree(s) → ovgu_bbox_tile_0_1_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_0_2: saved ovgu_bbox_tile_0_2_tcd_segformer_seg.npy, ovgu_bbox_tile_0_2_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_0_2: vectorized 65 tree(s) → ovgu_bbox_tile_0_2_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_0_3: saved ovgu_bbox_tile_0_3_tcd_segformer_seg.npy, ovgu_bbox_tile_0_3_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_0_3: vectorized 43 tree(s) → ovgu_bbox_tile_0_3_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_1_0: saved ovgu_bbox_tile_1_0_tcd_segformer_seg.npy, ovgu_bbox_tile_1_0_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_1_0: vectorized 82 tree(s) → ovgu_bbox_tile_1_0_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_1_1: saved ovgu_bbox_tile_1_1_tcd_segformer_seg.npy, ovgu_bbox_tile_1_1_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_1_1: vectorized 93 tree(s) → ovgu_bbox_tile_1_1_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_1_2: saved ovgu_bbox_tile_1_2_tcd_segformer_seg.npy, ovgu_bbox_tile_1_2_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_1_2: vectorized 69 tree(s) → ovgu_bbox_tile_1_2_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_1_3: saved ovgu_bbox_tile_1_3_tcd_segformer_seg.npy, ovgu_bbox_tile_1_3_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_1_3: vectorized 40 tree(s) → ovgu_bbox_tile_1_3_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_2_0: saved ovgu_bbox_tile_2_0_tcd_segformer_seg.npy, ovgu_bbox_tile_2_0_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_2_0: vectorized 105 tree(s) → ovgu_bbox_tile_2_0_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_2_1: saved ovgu_bbox_tile_2_1_tcd_segformer_seg.npy, ovgu_bbox_tile_2_1_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_2_1: vectorized 70 tree(s) → ovgu_bbox_tile_2_1_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_2_2: saved ovgu_bbox_tile_2_2_tcd_segformer_seg.npy, ovgu_bbox_tile_2_2_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_2_2: vectorized 55 tree(s) → ovgu_bbox_tile_2_2_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_2_3: saved ovgu_bbox_tile_2_3_tcd_segformer_seg.npy, ovgu_bbox_tile_2_3_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_2_3: vectorized 65 tree(s) → ovgu_bbox_tile_2_3_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_3_0: saved ovgu_bbox_tile_3_0_tcd_segformer_seg.npy, ovgu_bbox_tile_3_0_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_3_0: vectorized 42 tree(s) → ovgu_bbox_tile_3_0_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_3_1: saved ovgu_bbox_tile_3_1_tcd_segformer_seg.npy, ovgu_bbox_tile_3_1_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_3_1: vectorized 24 tree(s) → ovgu_bbox_tile_3_1_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_3_2: saved ovgu_bbox_tile_3_2_tcd_segformer_seg.npy, ovgu_bbox_tile_3_2_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_3_2: vectorized 23 tree(s) → ovgu_bbox_tile_3_2_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_3_3: saved ovgu_bbox_tile_3_3_tcd_segformer_seg.npy, ovgu_bbox_tile_3_3_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_3_3: vectorized 27 tree(s) → ovgu_bbox_tile_3_3_tcd_segformer_trees.fgb
+  merged → ovgu_bbox_tcd_segformer_trees_merged.fgb
+
+--- ovgu_bbox @ 500m: segmenting 4 tile(s) [tcd_segformer] ---
+  ovgu_bbox_tile_0_0: saved ovgu_bbox_tile_0_0_tcd_segformer_seg.npy, ovgu_bbox_tile_0_0_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_0_0: vectorized 141 tree(s) → ovgu_bbox_tile_0_0_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_0_1: saved ovgu_bbox_tile_0_1_tcd_segformer_seg.npy, ovgu_bbox_tile_0_1_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_0_1: vectorized 113 tree(s) → ovgu_bbox_tile_0_1_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_1_0: saved ovgu_bbox_tile_1_0_tcd_segformer_seg.npy, ovgu_bbox_tile_1_0_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_1_0: vectorized 136 tree(s) → ovgu_bbox_tile_1_0_tcd_segformer_trees.fgb
+  ovgu_bbox_tile_1_1: saved ovgu_bbox_tile_1_1_tcd_segformer_seg.npy, ovgu_bbox_tile_1_1_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_1_1: vectorized 106 tree(s) → ovgu_bbox_tile_1_1_tcd_segformer_trees.fgb
+  merged → ovgu_bbox_tcd_segformer_trees_merged.fgb
+
+--- ovgu_bbox @ 1000m: segmenting 1 tile(s) [tcd_segformer] ---
+  ovgu_bbox_tile_0_0: saved ovgu_bbox_tile_0_0_tcd_segformer_seg.npy, ovgu_bbox_tile_0_0_tcd_segformer_seg_overlay.png
+  ovgu_bbox_tile_0_0: vectorized 147 tree(s) → ovgu_bbox_tile_0_0_tcd_segformer_trees.fgb
+  merged → ovgu_bbox_tcd_segformer_trees_merged.fgb
+Shadow casting for 2026-06-21 10:00 UTC
+
+--- ovgu_bbox @ 100m: 90 tile(s) ---
+  ovgu_bbox_tile_0_0: shadow=3.1%  → ovgu_bbox_tile_0_0_tcd_segformer_shadow.png, ovgu_bbox_tile_0_0_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_0_1: shadow=5.6%  → ovgu_bbox_tile_0_1_tcd_segformer_shadow.png, ovgu_bbox_tile_0_1_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_0_2: shadow=10.9%  → ovgu_bbox_tile_0_2_tcd_segformer_shadow.png, ovgu_bbox_tile_0_2_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_0_3: shadow=5.3%  → ovgu_bbox_tile_0_3_tcd_segformer_shadow.png, ovgu_bbox_tile_0_3_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_0_4: shadow=7.6%  → ovgu_bbox_tile_0_4_tcd_segformer_shadow.png, ovgu_bbox_tile_0_4_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_0_5: shadow=8.5%  → ovgu_bbox_tile_0_5_tcd_segformer_shadow.png, ovgu_bbox_tile_0_5_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_0_6: shadow=3.6%  → ovgu_bbox_tile_0_6_tcd_segformer_shadow.png, ovgu_bbox_tile_0_6_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_0_7: shadow=4.0%  → ovgu_bbox_tile_0_7_tcd_segformer_shadow.png, ovgu_bbox_tile_0_7_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_0_8: shadow=5.1%  → ovgu_bbox_tile_0_8_tcd_segformer_shadow.png, ovgu_bbox_tile_0_8_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_0_9: shadow=0.0%  → ovgu_bbox_tile_0_9_tcd_segformer_shadow.png, ovgu_bbox_tile_0_9_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_1_0: shadow=9.7%  → ovgu_bbox_tile_1_0_tcd_segformer_shadow.png, ovgu_bbox_tile_1_0_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_1_1: shadow=7.7%  → ovgu_bbox_tile_1_1_tcd_segformer_shadow.png, ovgu_bbox_tile_1_1_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_1_2: shadow=2.9%  → ovgu_bbox_tile_1_2_tcd_segformer_shadow.png, ovgu_bbox_tile_1_2_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_1_3: shadow=2.8%  → ovgu_bbox_tile_1_3_tcd_segformer_shadow.png, ovgu_bbox_tile_1_3_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_1_4: shadow=7.6%  → ovgu_bbox_tile_1_4_tcd_segformer_shadow.png, ovgu_bbox_tile_1_4_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_1_5: shadow=13.6%  → ovgu_bbox_tile_1_5_tcd_segformer_shadow.png, ovgu_bbox_tile_1_5_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_1_6: shadow=8.5%  → ovgu_bbox_tile_1_6_tcd_segformer_shadow.png, ovgu_bbox_tile_1_6_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_1_7: shadow=5.2%  → ovgu_bbox_tile_1_7_tcd_segformer_shadow.png, ovgu_bbox_tile_1_7_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_1_8: shadow=10.4%  → ovgu_bbox_tile_1_8_tcd_segformer_shadow.png, ovgu_bbox_tile_1_8_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_1_9: shadow=0.0%  → ovgu_bbox_tile_1_9_tcd_segformer_shadow.png, ovgu_bbox_tile_1_9_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_2_0: shadow=11.9%  → ovgu_bbox_tile_2_0_tcd_segformer_shadow.png, ovgu_bbox_tile_2_0_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_2_1: shadow=12.6%  → ovgu_bbox_tile_2_1_tcd_segformer_shadow.png, ovgu_bbox_tile_2_1_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_2_2: shadow=5.9%  → ovgu_bbox_tile_2_2_tcd_segformer_shadow.png, ovgu_bbox_tile_2_2_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_2_3: shadow=4.8%  → ovgu_bbox_tile_2_3_tcd_segformer_shadow.png, ovgu_bbox_tile_2_3_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_2_4: shadow=13.0%  → ovgu_bbox_tile_2_4_tcd_segformer_shadow.png, ovgu_bbox_tile_2_4_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_2_5: shadow=13.9%  → ovgu_bbox_tile_2_5_tcd_segformer_shadow.png, ovgu_bbox_tile_2_5_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_2_6: shadow=10.4%  → ovgu_bbox_tile_2_6_tcd_segformer_shadow.png, ovgu_bbox_tile_2_6_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_2_7: shadow=6.7%  → ovgu_bbox_tile_2_7_tcd_segformer_shadow.png, ovgu_bbox_tile_2_7_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_2_8: shadow=7.8%  → ovgu_bbox_tile_2_8_tcd_segformer_shadow.png, ovgu_bbox_tile_2_8_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_2_9: shadow=0.0%  → ovgu_bbox_tile_2_9_tcd_segformer_shadow.png, ovgu_bbox_tile_2_9_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_3_0: shadow=8.8%  → ovgu_bbox_tile_3_0_tcd_segformer_shadow.png, ovgu_bbox_tile_3_0_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_3_1: shadow=3.4%  → ovgu_bbox_tile_3_1_tcd_segformer_shadow.png, ovgu_bbox_tile_3_1_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_3_2: shadow=6.0%  → ovgu_bbox_tile_3_2_tcd_segformer_shadow.png, ovgu_bbox_tile_3_2_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_3_3: shadow=5.9%  → ovgu_bbox_tile_3_3_tcd_segformer_shadow.png, ovgu_bbox_tile_3_3_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_3_4: shadow=15.2%  → ovgu_bbox_tile_3_4_tcd_segformer_shadow.png, ovgu_bbox_tile_3_4_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_3_5: shadow=13.9%  → ovgu_bbox_tile_3_5_tcd_segformer_shadow.png, ovgu_bbox_tile_3_5_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_3_6: shadow=16.3%  → ovgu_bbox_tile_3_6_tcd_segformer_shadow.png, ovgu_bbox_tile_3_6_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_3_7: shadow=12.6%  → ovgu_bbox_tile_3_7_tcd_segformer_shadow.png, ovgu_bbox_tile_3_7_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_3_8: shadow=7.6%  → ovgu_bbox_tile_3_8_tcd_segformer_shadow.png, ovgu_bbox_tile_3_8_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_3_9: shadow=0.0%  → ovgu_bbox_tile_3_9_tcd_segformer_shadow.png, ovgu_bbox_tile_3_9_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_4_0: shadow=9.4%  → ovgu_bbox_tile_4_0_tcd_segformer_shadow.png, ovgu_bbox_tile_4_0_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_4_1: shadow=6.4%  → ovgu_bbox_tile_4_1_tcd_segformer_shadow.png, ovgu_bbox_tile_4_1_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_4_2: shadow=6.0%  → ovgu_bbox_tile_4_2_tcd_segformer_shadow.png, ovgu_bbox_tile_4_2_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_4_3: shadow=4.2%  → ovgu_bbox_tile_4_3_tcd_segformer_shadow.png, ovgu_bbox_tile_4_3_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_4_4: shadow=11.2%  → ovgu_bbox_tile_4_4_tcd_segformer_shadow.png, ovgu_bbox_tile_4_4_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_4_5: shadow=14.7%  → ovgu_bbox_tile_4_5_tcd_segformer_shadow.png, ovgu_bbox_tile_4_5_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_4_6: shadow=17.8%  → ovgu_bbox_tile_4_6_tcd_segformer_shadow.png, ovgu_bbox_tile_4_6_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_4_7: shadow=14.9%  → ovgu_bbox_tile_4_7_tcd_segformer_shadow.png, ovgu_bbox_tile_4_7_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_4_8: shadow=9.6%  → ovgu_bbox_tile_4_8_tcd_segformer_shadow.png, ovgu_bbox_tile_4_8_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_4_9: shadow=0.0%  → ovgu_bbox_tile_4_9_tcd_segformer_shadow.png, ovgu_bbox_tile_4_9_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_5_0: shadow=10.0%  → ovgu_bbox_tile_5_0_tcd_segformer_shadow.png, ovgu_bbox_tile_5_0_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_5_1: shadow=4.1%  → ovgu_bbox_tile_5_1_tcd_segformer_shadow.png, ovgu_bbox_tile_5_1_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_5_2: shadow=3.3%  → ovgu_bbox_tile_5_2_tcd_segformer_shadow.png, ovgu_bbox_tile_5_2_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_5_3: shadow=6.0%  → ovgu_bbox_tile_5_3_tcd_segformer_shadow.png, ovgu_bbox_tile_5_3_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_5_4: shadow=5.0%  → ovgu_bbox_tile_5_4_tcd_segformer_shadow.png, ovgu_bbox_tile_5_4_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_5_5: shadow=5.8%  → ovgu_bbox_tile_5_5_tcd_segformer_shadow.png, ovgu_bbox_tile_5_5_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_5_6: shadow=6.7%  → ovgu_bbox_tile_5_6_tcd_segformer_shadow.png, ovgu_bbox_tile_5_6_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_5_7: shadow=2.4%  → ovgu_bbox_tile_5_7_tcd_segformer_shadow.png, ovgu_bbox_tile_5_7_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_5_8: shadow=7.0%  → ovgu_bbox_tile_5_8_tcd_segformer_shadow.png, ovgu_bbox_tile_5_8_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_5_9: shadow=0.0%  → ovgu_bbox_tile_5_9_tcd_segformer_shadow.png, ovgu_bbox_tile_5_9_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_6_0: shadow=2.6%  → ovgu_bbox_tile_6_0_tcd_segformer_shadow.png, ovgu_bbox_tile_6_0_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_6_1: shadow=6.0%  → ovgu_bbox_tile_6_1_tcd_segformer_shadow.png, ovgu_bbox_tile_6_1_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_6_2: shadow=6.1%  → ovgu_bbox_tile_6_2_tcd_segformer_shadow.png, ovgu_bbox_tile_6_2_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_6_3: shadow=8.7%  → ovgu_bbox_tile_6_3_tcd_segformer_shadow.png, ovgu_bbox_tile_6_3_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_6_4: shadow=5.0%  → ovgu_bbox_tile_6_4_tcd_segformer_shadow.png, ovgu_bbox_tile_6_4_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_6_5: shadow=2.4%  → ovgu_bbox_tile_6_5_tcd_segformer_shadow.png, ovgu_bbox_tile_6_5_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_6_6: shadow=2.9%  → ovgu_bbox_tile_6_6_tcd_segformer_shadow.png, ovgu_bbox_tile_6_6_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_6_7: shadow=4.4%  → ovgu_bbox_tile_6_7_tcd_segformer_shadow.png, ovgu_bbox_tile_6_7_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_6_8: shadow=8.5%  → ovgu_bbox_tile_6_8_tcd_segformer_shadow.png, ovgu_bbox_tile_6_8_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_6_9: shadow=0.0%  → ovgu_bbox_tile_6_9_tcd_segformer_shadow.png, ovgu_bbox_tile_6_9_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_7_0: shadow=8.3%  → ovgu_bbox_tile_7_0_tcd_segformer_shadow.png, ovgu_bbox_tile_7_0_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_7_1: shadow=4.1%  → ovgu_bbox_tile_7_1_tcd_segformer_shadow.png, ovgu_bbox_tile_7_1_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_7_2: shadow=6.9%  → ovgu_bbox_tile_7_2_tcd_segformer_shadow.png, ovgu_bbox_tile_7_2_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_7_3: shadow=2.8%  → ovgu_bbox_tile_7_3_tcd_segformer_shadow.png, ovgu_bbox_tile_7_3_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_7_4: shadow=3.7%  → ovgu_bbox_tile_7_4_tcd_segformer_shadow.png, ovgu_bbox_tile_7_4_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_7_5: shadow=3.3%  → ovgu_bbox_tile_7_5_tcd_segformer_shadow.png, ovgu_bbox_tile_7_5_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_7_6: shadow=0.8%  → ovgu_bbox_tile_7_6_tcd_segformer_shadow.png, ovgu_bbox_tile_7_6_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_7_7: shadow=8.2%  → ovgu_bbox_tile_7_7_tcd_segformer_shadow.png, ovgu_bbox_tile_7_7_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_7_8: shadow=4.6%  → ovgu_bbox_tile_7_8_tcd_segformer_shadow.png, ovgu_bbox_tile_7_8_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_7_9: shadow=0.0%  → ovgu_bbox_tile_7_9_tcd_segformer_shadow.png, ovgu_bbox_tile_7_9_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_8_0: shadow=2.4%  → ovgu_bbox_tile_8_0_tcd_segformer_shadow.png, ovgu_bbox_tile_8_0_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_8_1: shadow=5.9%  → ovgu_bbox_tile_8_1_tcd_segformer_shadow.png, ovgu_bbox_tile_8_1_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_8_2: shadow=4.4%  → ovgu_bbox_tile_8_2_tcd_segformer_shadow.png, ovgu_bbox_tile_8_2_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_8_3: shadow=2.8%  → ovgu_bbox_tile_8_3_tcd_segformer_shadow.png, ovgu_bbox_tile_8_3_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_8_4: shadow=2.0%  → ovgu_bbox_tile_8_4_tcd_segformer_shadow.png, ovgu_bbox_tile_8_4_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_8_5: shadow=2.4%  → ovgu_bbox_tile_8_5_tcd_segformer_shadow.png, ovgu_bbox_tile_8_5_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_8_6: shadow=1.9%  → ovgu_bbox_tile_8_6_tcd_segformer_shadow.png, ovgu_bbox_tile_8_6_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_8_7: shadow=2.4%  → ovgu_bbox_tile_8_7_tcd_segformer_shadow.png, ovgu_bbox_tile_8_7_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_8_8: shadow=5.4%  → ovgu_bbox_tile_8_8_tcd_segformer_shadow.png, ovgu_bbox_tile_8_8_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_8_9: shadow=0.0%  → ovgu_bbox_tile_8_9_tcd_segformer_shadow.png, ovgu_bbox_tile_8_9_tcd_segformer_shadow.fgb
+  merged → ovgu_bbox_tcd_segformer_shadow_merged.fgb
+
+--- ovgu_bbox @ 250m: 16 tile(s) ---
+  ovgu_bbox_tile_0_0: shadow=6.9%  → ovgu_bbox_tile_0_0_tcd_segformer_shadow.png, ovgu_bbox_tile_0_0_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_0_1: shadow=7.6%  → ovgu_bbox_tile_0_1_tcd_segformer_shadow.png, ovgu_bbox_tile_0_1_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_0_2: shadow=9.0%  → ovgu_bbox_tile_0_2_tcd_segformer_shadow.png, ovgu_bbox_tile_0_2_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_0_3: shadow=6.0%  → ovgu_bbox_tile_0_3_tcd_segformer_shadow.png, ovgu_bbox_tile_0_3_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_1_0: shadow=7.9%  → ovgu_bbox_tile_1_0_tcd_segformer_shadow.png, ovgu_bbox_tile_1_0_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_1_1: shadow=8.2%  → ovgu_bbox_tile_1_1_tcd_segformer_shadow.png, ovgu_bbox_tile_1_1_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_1_2: shadow=15.0%  → ovgu_bbox_tile_1_2_tcd_segformer_shadow.png, ovgu_bbox_tile_1_2_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_1_3: shadow=7.7%  → ovgu_bbox_tile_1_3_tcd_segformer_shadow.png, ovgu_bbox_tile_1_3_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_2_0: shadow=6.1%  → ovgu_bbox_tile_2_0_tcd_segformer_shadow.png, ovgu_bbox_tile_2_0_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_2_1: shadow=5.5%  → ovgu_bbox_tile_2_1_tcd_segformer_shadow.png, ovgu_bbox_tile_2_1_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_2_2: shadow=4.6%  → ovgu_bbox_tile_2_2_tcd_segformer_shadow.png, ovgu_bbox_tile_2_2_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_2_3: shadow=6.2%  → ovgu_bbox_tile_2_3_tcd_segformer_shadow.png, ovgu_bbox_tile_2_3_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_3_0: shadow=5.3%  → ovgu_bbox_tile_3_0_tcd_segformer_shadow.png, ovgu_bbox_tile_3_0_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_3_1: shadow=3.5%  → ovgu_bbox_tile_3_1_tcd_segformer_shadow.png, ovgu_bbox_tile_3_1_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_3_2: shadow=1.5%  → ovgu_bbox_tile_3_2_tcd_segformer_shadow.png, ovgu_bbox_tile_3_2_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_3_3: shadow=4.6%  → ovgu_bbox_tile_3_3_tcd_segformer_shadow.png, ovgu_bbox_tile_3_3_tcd_segformer_shadow.fgb
+  merged → ovgu_bbox_tcd_segformer_shadow_merged.fgb
+
+--- ovgu_bbox @ 500m: 4 tile(s) ---
+  ovgu_bbox_tile_0_0: shadow=6.6%  → ovgu_bbox_tile_0_0_tcd_segformer_shadow.png, ovgu_bbox_tile_0_0_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_0_1: shadow=8.4%  → ovgu_bbox_tile_0_1_tcd_segformer_shadow.png, ovgu_bbox_tile_0_1_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_1_0: shadow=4.6%  → ovgu_bbox_tile_1_0_tcd_segformer_shadow.png, ovgu_bbox_tile_1_0_tcd_segformer_shadow.fgb
+  ovgu_bbox_tile_1_1: shadow=4.0%  → ovgu_bbox_tile_1_1_tcd_segformer_shadow.png, ovgu_bbox_tile_1_1_tcd_segformer_shadow.fgb
+  merged → ovgu_bbox_tcd_segformer_shadow_merged.fgb
+
+--- ovgu_bbox @ 1000m: 1 tile(s) ---
+  ovgu_bbox_tile_0_0: shadow=3.6%  → ovgu_bbox_tile_0_0_tcd_segformer_shadow.png, ovgu_bbox_tile_0_0_tcd_segformer_shadow.fgb
+  merged → ovgu_bbox_tcd_segformer_shadow_merged.fgb
+Done: 2026-06-11 18:46 UTC
