@@ -1,3 +1,4 @@
+from __future__ import annotations
 """Vegetation detection: VARI spectral index and ML-based alternatives."""
 
 import numpy as np

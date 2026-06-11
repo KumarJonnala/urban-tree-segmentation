@@ -1,3 +1,4 @@
+from __future__ import annotations
 """Shadow overlay visualisation."""
 
 from pathlib import Path

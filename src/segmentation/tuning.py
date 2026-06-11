@@ -1,3 +1,4 @@
+from __future__ import annotations
 """Hyperparameter tuning for vegetation segmentation methods.
 
 Uses SegFormer-B5 as the reference mask (most stable semantic coverage)

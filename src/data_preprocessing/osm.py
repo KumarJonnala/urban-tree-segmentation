@@ -1,3 +1,4 @@
+from __future__ import annotations
 """OSM vector layer downloader: buildings and buffered road polygons."""
 
 from pathlib import Path

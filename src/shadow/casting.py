@@ -1,3 +1,4 @@
+from __future__ import annotations
 """Tree shadow casting: height estimation and geometric shadow projection."""
 
 import math

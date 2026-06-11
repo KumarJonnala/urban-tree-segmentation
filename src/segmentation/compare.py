@@ -1,3 +1,4 @@
+from __future__ import annotations
 """Compare vegetation segmentation methods: metrics and visual output."""
 
 from pathlib import Path

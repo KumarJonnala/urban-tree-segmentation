@@ -1,3 +1,4 @@
+from __future__ import annotations
 """Rasterization and overlay composition: multi-class .npy + PNG outputs."""
 
 from pathlib import Path

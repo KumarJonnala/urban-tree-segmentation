@@ -1,3 +1,4 @@
+from __future__ import annotations
 """Sun position from geographic coordinates and UTC datetime."""
 
 import datetime as dt
