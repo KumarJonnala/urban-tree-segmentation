@@ -348,7 +348,6 @@ def cmd_shadow(
     all_sizes: bool = False,
 ) -> None:
     import datetime as dt
-    import geopandas as gpd
     from src.shadow import cast_tree_shadows, save_shadow_overlay, vectorize_shadows
 
     if datetime_utc is None:
@@ -374,7 +373,6 @@ def cmd_shadow(
             for t in tiles:
                 stem = f"{area_name}_tile_{t['ix']}_{t['iy']}"
                 seg_path = seg_dir / f"{stem}_{vegetation_model}_seg.npy"
-                fgb_path = seg_dir / f"{stem}_{vegetation_model}_trees.fgb"
                 img_path = OUTPUT_DIR / area_name / f"{size}m" / f"{stem}.png"
 
                 if not seg_path.exists():
@@ -387,11 +385,7 @@ def cmd_shadow(
                 seg_map = np.load(seg_path)
                 img = np.array(Image.open(img_path).convert("RGB"))
 
-                tree_gdf = gpd.read_file(fgb_path) if fgb_path.exists() else None
-                if tree_gdf is not None:
-                    print(f"  {stem}: using stored tree vectors ({len(tree_gdf)} trees)")
-
-                shadow_mask = cast_tree_shadows(seg_map, t, when, tree_gdf=tree_gdf)
+                shadow_mask = cast_tree_shadows(seg_map, t, when)
                 coverage_pct = shadow_mask.mean() * 100
 
                 out_path = shadow_dir / f"{stem}_{vegetation_model}_shadow.png"
@@ -647,35 +641,54 @@ def cmd_render(
             trees_gdf = gpd.read_file(trees_path)
             shadow_gdf = gpd.read_file(shadow_path) if shadow_path.exists() and shadow_path.stat().st_size > 0 else None
 
+            # --- Figure 1: post-segmentation ---
             fig, ax = plt.subplots(figsize=(10, 10))
-            # orthophoto background — extent aligns UTM metres with polygon CRS
             ax.imshow(img, extent=extent, origin="upper", aspect="equal")
-
             if buildings_gdf is not None and len(buildings_gdf) > 0:
                 buildings_gdf.plot(ax=ax, facecolor="#d94747", edgecolor="#ffaaaa", linewidth=0.4, alpha=0.55, zorder=2)
-            if shadow_gdf is not None and len(shadow_gdf) > 0:
-                shadow_gdf.plot(ax=ax, facecolor="#1a1a4d", edgecolor="#aaaaff", linewidth=0.4, alpha=0.50, zorder=3)
             if len(trees_gdf) > 0:
                 trees_gdf.plot(ax=ax, facecolor="#267326", edgecolor="#90ee90", linewidth=0.4, alpha=0.65, zorder=4)
-
             ax.set_xlim(west_m, east_m)
             ax.set_ylim(south_m, north_m)
             ax.set_xlabel("Easting (m, EPSG:25832)")
             ax.set_ylabel("Northing (m, EPSG:25832)")
-            ax.set_title(f"{area_name} @ {size}m tiles — {vegetation_model}", fontsize=11)
-
+            ax.set_title(f"{area_name} @ {size}m tiles — segmentation [{vegetation_model}]", fontsize=11)
             legend = [mpatches.Patch(color="#267326", label=f"Trees ({len(trees_gdf)})")]
             if buildings_gdf is not None:
                 legend.append(mpatches.Patch(color="#d94747", label=f"Buildings ({len(buildings_gdf)})"))
-            if shadow_gdf is not None and len(shadow_gdf) > 0:
-                legend.append(mpatches.Patch(color="#1a1a4d", label=f"Shadows ({len(shadow_gdf)})"))
             ax.legend(handles=legend, loc="lower right", fontsize=9, framealpha=0.85)
-
             fig.tight_layout()
-            out_path = seg_dir / f"{area_name}_{vegetation_model}_{size}m_merged_render.png"
-            fig.savefig(out_path, dpi=150, bbox_inches="tight")
+            seg_render_path = seg_dir / f"{area_name}_{vegetation_model}_{size}m_seg_render.png"
+            fig.savefig(seg_render_path, dpi=150, bbox_inches="tight")
             plt.close(fig)
-            print(f"  {area_name} @ {size}m: saved → {out_path.name}  ({len(trees_gdf)} trees)")
+            print(f"  {area_name} @ {size}m [seg]:    → {seg_render_path.name}  ({len(trees_gdf)} trees)")
+
+            # --- Figure 2: post-shadow ---
+            if shadow_gdf is not None and len(shadow_gdf) > 0:
+                fig, ax = plt.subplots(figsize=(10, 10))
+                ax.imshow(img, extent=extent, origin="upper", aspect="equal")
+                if buildings_gdf is not None and len(buildings_gdf) > 0:
+                    buildings_gdf.plot(ax=ax, facecolor="#d94747", edgecolor="#ffaaaa", linewidth=0.4, alpha=0.55, zorder=2)
+                shadow_gdf.plot(ax=ax, facecolor="#1a1a4d", edgecolor="#aaaaff", linewidth=0.4, alpha=0.50, zorder=3)
+                trees_gdf.plot(ax=ax, facecolor="#267326", edgecolor="#90ee90", linewidth=0.4, alpha=0.65, zorder=4)
+                ax.set_xlim(west_m, east_m)
+                ax.set_ylim(south_m, north_m)
+                ax.set_xlabel("Easting (m, EPSG:25832)")
+                ax.set_ylabel("Northing (m, EPSG:25832)")
+                ax.set_title(f"{area_name} @ {size}m tiles — segmentation + shadows [{vegetation_model}]", fontsize=11)
+                legend = [
+                    mpatches.Patch(color="#267326", label=f"Trees ({len(trees_gdf)})"),
+                    mpatches.Patch(color="#d94747", label=f"Buildings ({len(buildings_gdf) if buildings_gdf is not None else 0})"),
+                    mpatches.Patch(color="#1a1a4d", label=f"Shadows ({len(shadow_gdf)})"),
+                ]
+                ax.legend(handles=legend, loc="lower right", fontsize=9, framealpha=0.85)
+                fig.tight_layout()
+                shadow_render_path = shadow_dir / f"{area_name}_{vegetation_model}_{size}m_shadow_render.png"
+                fig.savefig(shadow_render_path, dpi=150, bbox_inches="tight")
+                plt.close(fig)
+                print(f"  {area_name} @ {size}m [shadow]: → {shadow_render_path.name}  ({len(shadow_gdf)} shadows)")
+            else:
+                print(f"  {area_name} @ {size}m [shadow]: no shadow data — skipped")
 
 
 def cmd_all(dry_run: bool = False, vegetation_model: str = DEFAULT_VEGETATION_MODEL, datetime_utc: str | None = None, tile_size_m: int | None = None, all_sizes: bool = False) -> None:

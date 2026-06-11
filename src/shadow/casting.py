@@ -147,12 +147,12 @@ def vectorize_trees(
     bbox: dict,
     vegetation_model: str,
     min_component_pixels: int = 50,
-    max_crown_radius_m: float = MAX_CROWN_RADIUS_M,
 ) -> gpd.GeoDataFrame:
     """Convert a tree mask to georeferenced polygon features in EPSG:25832.
 
-    Runs connected-component labeling and the allometric height formula,
-    then traces each component into a Shapely polygon via rasterio.features.shapes().
+    Runs plain connected-component labeling (no watershed splitting) and the
+    allometric height formula, then traces each component into a Shapely polygon
+    via rasterio.features.shapes(). One polygon per canopy blob.
 
     Returns a GeoDataFrame with columns:
       tree_id (int), geometry (Polygon), height_m, crown_radius_m,
@@ -161,11 +161,22 @@ def vectorize_trees(
     H, W = tree_mask.shape
     pixel_size_m = _pixel_size_m(bbox, (H, W))
     transform = _bbox_to_transform(bbox, (H, W))
-    labeled, heights = estimate_tree_heights(tree_mask, pixel_size_m, min_component_pixels, max_crown_radius_m)
+    px_area = pixel_size_m ** 2
+
+    labeled, n = cc_label(tree_mask, structure=_8CONN)
+    labeled = labeled.astype(np.int32)
 
     records = []
-    for k, height_m in heights.items():
-        component = (labeled == k).astype(np.uint8)
+    for k in range(1, n + 1):
+        comp_mask = labeled == k
+        n_pixels = int(comp_mask.sum())
+        if n_pixels < min_component_pixels:
+            continue
+        crown_area_m2 = n_pixels * px_area
+        crown_radius_m = math.sqrt(crown_area_m2 / math.pi)
+        height_m = 2.0 * crown_radius_m * 0.7
+
+        component = comp_mask.astype(np.uint8)
         polys = [
             sg_shape(geom)
             for geom, val in rio_shapes(component, mask=component, transform=transform)
@@ -174,13 +185,12 @@ def vectorize_trees(
         if not polys:
             continue
         geom = max(polys, key=lambda g: g.area)
-        crown_radius_m = height_m / 1.4
         records.append({
             "tree_id": k,
             "geometry": geom,
             "height_m": height_m,
             "crown_radius_m": crown_radius_m,
-            "crown_area_m2": math.pi * crown_radius_m ** 2,
+            "crown_area_m2": crown_area_m2,
             "vegetation_model": vegetation_model,
         })
 
