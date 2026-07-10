@@ -201,6 +201,7 @@ def vectorize_trees(
             "tree_id": k,
             "geometry": geom,
             "height_m": height_m,
+            "allometric_height_m": height_m,
             "crown_radius_m": crown_radius_m,
             "crown_area_m2": crown_area_m2,
             "vegetation_model": vegetation_model,
@@ -208,8 +209,8 @@ def vectorize_trees(
 
     if not records:
         return gpd.GeoDataFrame(
-            columns=["tree_id", "geometry", "height_m", "crown_radius_m",
-                     "crown_area_m2", "vegetation_model"],
+            columns=["tree_id", "geometry", "height_m", "allometric_height_m",
+                     "crown_radius_m", "crown_area_m2", "vegetation_model"],
             crs="EPSG:25832",
         )
     return gpd.GeoDataFrame(records, crs="EPSG:25832")

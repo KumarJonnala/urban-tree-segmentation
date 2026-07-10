@@ -246,6 +246,16 @@ def cmd_segment(vegetation_model: str = DEFAULT_VEGETATION_MODEL, tile_size_m: i
             merged_path = _merge_layer(area_name, vegetation_model, "trees", seg_dir)
             if merged_path:
                 print(f"  merged → {merged_path.name}")
+                merged = gpd.read_file(merged_path)
+                if "allometric_height_m" in merged.columns and "height_source" in merged.columns:
+                    m = merged[merged["height_source"] == "measured"]
+                    if len(m) > 0:
+                        err = m["allometric_height_m"] - m["height_m"]
+                        bias = err.mean()
+                        rmse = (err ** 2).mean() ** 0.5
+                        mae  = err.abs().mean()
+                        print(f"  height validation (n={len(m)} BK-matched): "
+                              f"bias={bias:+.1f} m  MAE={mae:.1f} m  RMSE={rmse:.1f} m")
 
 
 def cmd_compare(area_filter: str | None = None) -> None:

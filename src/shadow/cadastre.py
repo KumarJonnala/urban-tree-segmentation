@@ -41,6 +41,7 @@ def enrich_from_baumkataster(
     bk_match_dist_m       centroid-to-point distance in metres (None for unmatched)
     """
     result = tree_gdf.copy()
+    result["allometric_height_m"] = result["height_m"]
     result["species"] = None
     result["height_source"] = "allometric"
     result["is_deciduous"] = None
