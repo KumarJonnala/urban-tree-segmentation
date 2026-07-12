@@ -165,6 +165,167 @@ def cmd_download(dry_run: bool = False, tile_size_m: int | None = None, all_size
                 print(f"  {n} tile(s) saved — {elapsed:.1f}s total, {elapsed/n:.2f}s/tile")
 
 
+def _save_tile_summary(area_name: str, seg_dir, merged_gdf, bk_gdf, tile_size_m: int) -> None:
+    """Save a 6-panel tile-summary PNG alongside the merged FGB.
+
+    Panels (2 × 3):
+      1. Majority BK genus        2. Height bias (m)       3. Height MAE (m)
+      4. BK match rate (%)        5. Crown area ratio       6. Mean tree height (m)
+    """
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import matplotlib.colors as mcolors
+    import matplotlib.patches as mpatches
+    from pathlib import Path as _Path
+    from PIL import Image as _PILImage
+    from pyproj import Transformer as _Transformer
+    import geopandas as gpd
+    from shapely.geometry import box as _box
+    from src.data_preprocessing import tiles_for_area
+
+    _to_utm = _Transformer.from_crs("EPSG:4326", "EPSG:25832", always_xy=True)
+
+    out_path = _Path(seg_dir) / f"tile_summary_{tile_size_m}m.png"
+    full_img_path = OUTPUT_DIR / area_name / f"{area_name}_full.png"
+    if not full_img_path.exists():
+        print(f"  [tile_summary] orthophoto not found, skipping: {full_img_path}")
+        return
+
+    full_img = np.array(_PILImage.open(full_img_path).convert("RGB"))
+    ovgu = AREAS[area_name]
+    west_m, south_m = _to_utm.transform(ovgu["west"], ovgu["south"])
+    east_m, north_m = _to_utm.transform(ovgu["east"], ovgu["north"])
+    extent = [west_m, east_m, south_m, north_m]
+
+    tiles = tiles_for_area(AREAS[area_name], tile_size_m)
+    N_MIN = 5  # minimum matched trees to show error stats (else grey)
+
+    # Pre-compute per-tile stats
+    records = []
+    for t in tiles:
+        tw_m, ts_m = _to_utm.transform(t["west"], t["south"])
+        te_m, tn_m = _to_utm.transform(t["east"], t["north"])
+        tile_poly = _box(tw_m, ts_m, te_m, tn_m)
+        tile_frame = gpd.GeoDataFrame(geometry=[tile_poly], crs="EPSG:25832")
+
+        # Pipeline trees whose centroid falls in this tile
+        pipe = merged_gdf[merged_gdf.geometry.centroid.within(tile_poly)]
+        n_pipe = len(pipe)
+        matched = pipe[pipe["height_source"] == "measured"] if "height_source" in pipe.columns else pipe.iloc[:0]
+        n_matched = len(matched)
+
+        bias, mae, match_rate, mean_h = None, None, None, None
+        if n_matched >= N_MIN:
+            err = matched["allometric_height_m"] - matched["height_m"]
+            bias = float(err.mean())
+            mae = float(err.abs().mean())
+        if n_pipe > 0:
+            match_rate = n_matched / n_pipe * 100
+            mean_h = float(pipe["height_m"].mean())
+
+        # BK clip for crown area ratio and dominant genus
+        bk_clip = bk_gdf.clip(tile_frame).reset_index(drop=True) if bk_gdf is not None else gpd.GeoDataFrame()
+        bk_valid = bk_clip[bk_clip["Kronendurchmesser"] > 0] if len(bk_clip) > 0 else bk_clip
+        bk_area = float((3.14159 * (bk_valid["Kronendurchmesser"] / 2) ** 2).sum()) if len(bk_valid) > 0 else 0
+        pipe_area = float(pipe["crown_area_m2"].sum()) if "crown_area_m2" in pipe.columns else 0
+        ratio = pipe_area / bk_area if bk_area > 0 else None
+
+        genus = None
+        if len(bk_clip) > 0:
+            vc = bk_clip["Gattung lang"].str.split().str[0].value_counts()
+            genus = vc.index[0] if len(vc) > 0 else None
+
+        records.append({
+            "geometry": tile_poly,
+            "genus": genus or "—",
+            "bias": bias, "mae": mae,
+            "match_rate": match_rate,
+            "ratio": ratio,
+            "mean_h": mean_h,
+            "n_matched": n_matched,
+        })
+
+    # Build genus colour map (categorical)
+    all_genera = sorted({r["genus"] for r in records})
+    tab20 = plt.cm.tab20.colors
+    genus_color = {g: tab20[i % len(tab20)] for i, g in enumerate(all_genera)}
+
+    fig, axes = plt.subplots(2, 3, figsize=(18, 12))
+    fig.suptitle(f"{area_name}  |  {tile_size_m} m tiles  |  tile summary", fontsize=13)
+
+    panel_cfg = [
+        # (ax, value_key, title, cmap, norm, fmt, use_genus_color)
+        (axes[0, 0], "genus",      "Majority BK genus",         None,                                 None,                                                       None,    True),
+        (axes[0, 1], "bias",       "Allometric height bias (m)", plt.cm.RdBu_r,                        None,                                                       "{:+.1f}", False),
+        (axes[0, 2], "mae",        "Height MAE (m)",             plt.cm.YlOrRd,                        None,                                                       "{:.1f}",  False),
+        (axes[1, 0], "match_rate", "BK match rate (%)",          plt.cm.YlGn,                          mcolors.Normalize(vmin=0, vmax=100),                        "{:.0f}%", False),
+        (axes[1, 1], "ratio",      "Crown area ratio (pipe/BK)", plt.cm.RdYlGn,                        None,                                                       "{:.2f}",  False),
+        (axes[1, 2], "mean_h",     "Mean tree height (m)",       plt.cm.viridis,                       None,                                                       "{:.1f}",  False),
+    ]
+
+    # Compute dynamic norms for panels without a fixed norm
+    def _safe_norm(vals, centre=None):
+        vals = [v for v in vals if v is not None]
+        if not vals:
+            return mcolors.Normalize(0, 1)
+        lo, hi = min(vals), max(vals)
+        if centre is not None:
+            lim = max(abs(lo - centre), abs(hi - centre), 0.1)
+            return mcolors.TwoSlopeNorm(vmin=centre - lim, vcenter=centre, vmax=centre + lim)
+        return mcolors.Normalize(vmin=lo, vmax=max(hi, lo + 0.1))
+
+    dynamic_norms = {
+        "bias":   _safe_norm([r["bias"]  for r in records], centre=0),
+        "mae":    _safe_norm([r["mae"]   for r in records]),
+        "ratio":  _safe_norm([r["ratio"] for r in records], centre=1),
+        "mean_h": _safe_norm([r["mean_h"] for r in records]),
+    }
+
+    for ax, key, title, cmap, norm, fmt, use_genus in panel_cfg:
+        ax.imshow(full_img, extent=extent, origin="upper", aspect="equal")
+        if use_genus:
+            legend_patches = []
+        else:
+            actual_norm = norm if norm is not None else dynamic_norms.get(key)
+
+        for r in records:
+            val = r[key]
+            gdf_t = gpd.GeoDataFrame([{"geometry": r["geometry"]}], crs="EPSG:25832")
+            if use_genus:
+                color = genus_color[val]
+                gdf_t.plot(ax=ax, facecolor=color, edgecolor="white", linewidth=1, alpha=0.55, zorder=2)
+                lbl = str(val)
+            elif val is None:
+                gdf_t.plot(ax=ax, facecolor="#888888", edgecolor="white", linewidth=1, alpha=0.5, zorder=2)
+                lbl = "—"
+            else:
+                color = cmap(actual_norm(val))
+                gdf_t.plot(ax=ax, facecolor=color, edgecolor="white", linewidth=1, alpha=0.6, zorder=2)
+                lbl = fmt.format(val)
+
+            cx, cy = r["geometry"].centroid.x, r["geometry"].centroid.y
+            ax.text(cx, cy, lbl, ha="center", va="center", fontsize=7, fontweight="bold",
+                    bbox=dict(facecolor="white", alpha=0.65, edgecolor="none", pad=1.5), zorder=3)
+
+        ax.set_xlim(west_m, east_m); ax.set_ylim(south_m, north_m)
+        ax.set_title(title, fontsize=10)
+        ax.set_xlabel("Easting (m)", fontsize=8); ax.set_ylabel("Northing (m)", fontsize=8)
+        ax.tick_params(labelsize=7)
+
+        if use_genus:
+            handles = [mpatches.Patch(color=genus_color[g], label=g) for g in all_genera]
+            ax.legend(handles=handles, fontsize=6, loc="lower right", framealpha=0.85, ncol=2)
+        else:
+            sm = plt.cm.ScalarMappable(cmap=cmap, norm=actual_norm)
+            sm.set_array([])
+            plt.colorbar(sm, ax=ax, shrink=0.65, pad=0.02)
+
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
+    print(f"  tile summary → {out_path.name}")
+
+
 def cmd_segment(vegetation_model: str = DEFAULT_VEGETATION_MODEL, tile_size_m: int | None = None, all_sizes: bool = False) -> None:
     import geopandas as gpd
     from shapely.geometry import box as shapely_box
@@ -256,6 +417,7 @@ def cmd_segment(vegetation_model: str = DEFAULT_VEGETATION_MODEL, tile_size_m: i
                         mae  = err.abs().mean()
                         print(f"  height validation (n={len(m)} BK-matched): "
                               f"bias={bias:+.1f} m  MAE={mae:.1f} m  RMSE={rmse:.1f} m")
+                _save_tile_summary(area_name, seg_dir, merged, bk_gdf, size)
 
 
 def cmd_compare(area_filter: str | None = None) -> None:

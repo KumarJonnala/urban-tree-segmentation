@@ -1,8 +1,12 @@
 from __future__ import annotations
 """Spatial join of Baumkataster measurements onto pipeline tree polygons."""
 
+import math
+
 import geopandas as gpd
 import pandas as pd
+
+from src.config import ALLOMETRIC_A, ALLOMETRIC_B, ALLOMETRIC_PROFILES
 
 # Genera known to be deciduous in the Magdeburg climate zone
 DECIDUOUS_GENERA = {
@@ -104,6 +108,20 @@ def enrich_from_baumkataster(
     result.loc[matched, "crown_radius_m"] = result.loc[matched, "Kronendurchmesser"] / 2
     result.loc[matched, "species"] = result.loc[matched, "Gattung lang"]
     result.loc[matched, "height_source"] = "measured"
+
+    # Recompute allometric_height_m for matched trees using per-species (A, B).
+    # The initial value (set at line 44) used the tile-dominant genus; now that we
+    # know each tree's exact species we can use the species-specific curve instead.
+    if "crown_area_m2" in result.columns:
+        for idx in result.index[matched]:
+            sp = result.at[idx, "Gattung lang"]
+            genus = sp.split()[0] if pd.notna(sp) else None
+            A, B = ALLOMETRIC_PROFILES.get(genus, (ALLOMETRIC_A, ALLOMETRIC_B))
+            area = result.at[idx, "crown_area_m2"]
+            result.at[idx, "allometric_height_m"] = math.exp(
+                A + B * math.log(max(area, 1e-6))
+            )
+
     result.loc[matched, "is_deciduous"] = result.loc[matched, "species"].apply(
         lambda s: (s.split()[0] in DECIDUOUS_GENERA) if pd.notna(s) else None
     )
