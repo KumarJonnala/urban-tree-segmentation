@@ -1,0 +1,33 @@
+{
+  "area_name": "ovgu_bbox",
+  "tile_size_m": 1000,
+  "n_tiles": 1,
+  "summary": {
+    "bias_m": 13.459,
+    "mae_m": 14.663,
+    "mean_height_m": 21.821,
+    "n_matched": 41,
+    "n_segmented": 147,
+    "match_rate_pct": 27.9,
+    "pipe_crown_area_m2": 106702.3,
+    "bk_crown_area_m2": 70724.1,
+    "crown_area_ratio": 1.509
+  },
+  "tiles": [
+    {
+      "ix": 0,
+      "iy": 0,
+      "genus": "Tilia cordata",
+      "bias_m": 13.459,
+      "mae_m": 14.663,
+      "match_rate_pct": 27.9,
+      "n_matched": 41,
+      "n_segmented": 147,
+      "n_bk": 1060,
+      "pipe_crown_area_m2": 106702.3,
+      "bk_crown_area_m2": 70724.1,
+      "crown_area_ratio": 1.509,
+      "mean_height_m": 21.821
+    }
+  ]
+}

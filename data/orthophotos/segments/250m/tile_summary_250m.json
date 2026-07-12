@@ -5,7 +5,7 @@
   "summary": {
     "bias_m": 4.745,
     "mae_m": 6.072,
-    "mean_height_m": 13.45,
+    "mean_height_m": 13.545,
     "n_matched": 274,
     "n_segmented": 942,
     "match_rate_pct": 29.1,
@@ -27,7 +27,7 @@
       "pipe_crown_area_m2": 10098.5,
       "bk_crown_area_m2": 1910.9,
       "crown_area_ratio": 5.285,
-      "mean_height_m": 15.391
+      "mean_height_m": 15.364
     },
     {
       "ix": 0,
@@ -42,7 +42,7 @@
       "pipe_crown_area_m2": 13796.7,
       "bk_crown_area_m2": 4919.4,
       "crown_area_ratio": 2.805,
-      "mean_height_m": 12.897
+      "mean_height_m": 14.223
     },
     {
       "ix": 0,
@@ -57,7 +57,7 @@
       "pipe_crown_area_m2": 18304.3,
       "bk_crown_area_m2": 12944.5,
       "crown_area_ratio": 1.414,
-      "mean_height_m": 13.788
+      "mean_height_m": 14.1
     },
     {
       "ix": 0,
@@ -87,7 +87,7 @@
       "pipe_crown_area_m2": 11142.1,
       "bk_crown_area_m2": 4906.6,
       "crown_area_ratio": 2.271,
-      "mean_height_m": 11.703
+      "mean_height_m": 12.101
     },
     {
       "ix": 1,
@@ -102,7 +102,7 @@
       "pipe_crown_area_m2": 16579.9,
       "bk_crown_area_m2": 11848.7,
       "crown_area_ratio": 1.399,
-      "mean_height_m": 12.962
+      "mean_height_m": 13.779
     },
     {
       "ix": 1,
@@ -117,7 +117,7 @@
       "pipe_crown_area_m2": 28186.0,
       "bk_crown_area_m2": 22673.2,
       "crown_area_ratio": 1.243,
-      "mean_height_m": 13.949
+      "mean_height_m": 14.204
     },
     {
       "ix": 1,
@@ -132,7 +132,7 @@
       "pipe_crown_area_m2": 10125.4,
       "bk_crown_area_m2": 1525.4,
       "crown_area_ratio": 6.638,
-      "mean_height_m": 16.544
+      "mean_height_m": 17.041
     },
     {
       "ix": 2,
@@ -147,7 +147,7 @@
       "pipe_crown_area_m2": 8944.2,
       "bk_crown_area_m2": 2954.1,
       "crown_area_ratio": 3.028,
-      "mean_height_m": 11.108
+      "mean_height_m": 11.45
     },
     {
       "ix": 2,
@@ -162,7 +162,7 @@
       "pipe_crown_area_m2": 8667.2,
       "bk_crown_area_m2": 3170.8,
       "crown_area_ratio": 2.733,
-      "mean_height_m": 12.644
+      "mean_height_m": 9.601
     },
     {
       "ix": 2,
@@ -177,7 +177,7 @@
       "pipe_crown_area_m2": 9716.4,
       "bk_crown_area_m2": 1690.2,
       "crown_area_ratio": 5.749,
-      "mean_height_m": 15.12
+      "mean_height_m": 15.959
     },
     {
       "ix": 2,
@@ -207,7 +207,7 @@
       "pipe_crown_area_m2": 3563.0,
       "bk_crown_area_m2": 874.1,
       "crown_area_ratio": 4.076,
-      "mean_height_m": 11.044
+      "mean_height_m": 10.842
     },
     {
       "ix": 3,

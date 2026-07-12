@@ -1,0 +1,7 @@
+WARNING: You are using pip version 21.3.1; however, version 26.0.1 is available.
+You should consider upgrading via the '/home/bumu60du/HiWi1/urban-shadow-analysis/env/bin/python3 -m pip install --upgrade pip' command.
+/home/bumu60du/HiWi1/urban-shadow-analysis/env/lib64/python3.9/site-packages/networkx/utils/backends.py:135: RuntimeWarning: networkx backend defined more than once: nx-loopback
+  backends.update(_get_backends("networkx.backends"))
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+/home/bumu60du/HiWi1/urban-shadow-analysis/env/lib64/python3.9/site-packages/transformers/image_processing_base.py:417: UserWarning: The following named arguments are not valid for `SegformerImageProcessor.__init__` and were ignored: '_valid_processor_keys'
+  image_processor = cls(**image_processor_dict)

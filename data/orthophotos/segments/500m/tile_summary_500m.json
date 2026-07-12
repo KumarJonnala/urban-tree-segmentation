@@ -1,0 +1,78 @@
+{
+  "area_name": "ovgu_bbox",
+  "tile_size_m": 500,
+  "n_tiles": 4,
+  "summary": {
+    "bias_m": 7.635,
+    "mae_m": 8.19,
+    "mean_height_m": 16.512,
+    "n_matched": 134,
+    "n_segmented": 496,
+    "match_rate_pct": 27.0,
+    "pipe_crown_area_m2": 150495.8,
+    "bk_crown_area_m2": 70724.1,
+    "crown_area_ratio": 2.128
+  },
+  "tiles": [
+    {
+      "ix": 0,
+      "iy": 0,
+      "genus": "Tilia cordata",
+      "bias_m": 7.466,
+      "mae_m": 8.743,
+      "match_rate_pct": 37.6,
+      "n_matched": 53,
+      "n_segmented": 141,
+      "n_bk": 386,
+      "pipe_crown_area_m2": 45910.2,
+      "bk_crown_area_m2": 23585.6,
+      "crown_area_ratio": 1.947,
+      "mean_height_m": 16.765
+    },
+    {
+      "ix": 0,
+      "iy": 1,
+      "genus": "Tilia cordata",
+      "bias_m": 11.204,
+      "mae_m": 12.148,
+      "match_rate_pct": 30.1,
+      "n_matched": 34,
+      "n_segmented": 113,
+      "n_bk": 476,
+      "pipe_crown_area_m2": 65520.5,
+      "bk_crown_area_m2": 38128.8,
+      "crown_area_ratio": 1.718,
+      "mean_height_m": 18.705
+    },
+    {
+      "ix": 1,
+      "iy": 0,
+      "genus": "Tilia cordata",
+      "bias_m": 5.989,
+      "mae_m": 5.989,
+      "match_rate_pct": 27.9,
+      "n_matched": 38,
+      "n_segmented": 136,
+      "n_bk": 154,
+      "pipe_crown_area_m2": 19998.4,
+      "bk_crown_area_m2": 7041.5,
+      "crown_area_ratio": 2.84,
+      "mean_height_m": 14.622
+    },
+    {
+      "ix": 1,
+      "iy": 1,
+      "genus": "Amelanchier lamarckii",
+      "bias_m": 5.882,
+      "mae_m": 5.882,
+      "match_rate_pct": 8.5,
+      "n_matched": 9,
+      "n_segmented": 106,
+      "n_bk": 44,
+      "pipe_crown_area_m2": 19066.6,
+      "bk_crown_area_m2": 1968.2,
+      "crown_area_ratio": 9.687,
+      "mean_height_m": 15.957
+    }
+  ]
+}
