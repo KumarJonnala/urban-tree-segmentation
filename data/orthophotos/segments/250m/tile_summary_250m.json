@@ -5,13 +5,18 @@
   "summary": {
     "bias_m": 4.745,
     "mae_m": 6.072,
+    "rel_bias_pct": 55.7,
+    "mape_pct": 64.8,
+    "r2": -5.913,
     "mean_height_m": 13.545,
     "n_matched": 274,
     "n_segmented": 942,
     "match_rate_pct": 29.1,
     "pipe_crown_area_m2": 160537.3,
     "bk_crown_area_m2": 70724.1,
-    "crown_area_ratio": 2.27
+    "crown_area_ratio": 2.27,
+    "pipe_canopy_pct": 20.7,
+    "bk_canopy_pct": 9.1
   },
   "tiles": [
     {
@@ -20,6 +25,9 @@
       "genus": "Platanus acerifolia",
       "bias_m": 0.405,
       "mae_m": 2.758,
+      "rel_bias_pct": 4.6,
+      "mape_pct": 22.6,
+      "r2": -0.916,
       "match_rate_pct": 43.9,
       "n_matched": 25,
       "n_segmented": 57,
@@ -27,6 +35,8 @@
       "pipe_crown_area_m2": 10098.5,
       "bk_crown_area_m2": 1910.9,
       "crown_area_ratio": 5.285,
+      "pipe_canopy_pct": 16.2,
+      "bk_canopy_pct": 3.1,
       "mean_height_m": 15.364
     },
     {
@@ -35,6 +45,9 @@
       "genus": "Tilia euchlora",
       "bias_m": 7.651,
       "mae_m": 8.351,
+      "rel_bias_pct": 98.3,
+      "mape_pct": 104.0,
+      "r2": -15.338,
       "match_rate_pct": 23.2,
       "n_matched": 19,
       "n_segmented": 82,
@@ -42,6 +55,8 @@
       "pipe_crown_area_m2": 13796.7,
       "bk_crown_area_m2": 4919.4,
       "crown_area_ratio": 2.805,
+      "pipe_canopy_pct": 22.1,
+      "bk_canopy_pct": 7.9,
       "mean_height_m": 14.223
     },
     {
@@ -50,6 +65,9 @@
       "genus": "Quercus robur",
       "bias_m": 7.414,
       "mae_m": 7.743,
+      "rel_bias_pct": 68.6,
+      "mape_pct": 72.0,
+      "r2": -2.045,
       "match_rate_pct": 41.5,
       "n_matched": 27,
       "n_segmented": 65,
@@ -57,6 +75,8 @@
       "pipe_crown_area_m2": 18304.3,
       "bk_crown_area_m2": 12944.5,
       "crown_area_ratio": 1.414,
+      "pipe_canopy_pct": 29.3,
+      "bk_canopy_pct": 20.7,
       "mean_height_m": 14.1
     },
     {
@@ -65,6 +85,9 @@
       "genus": "Populus simonii",
       "bias_m": null,
       "mae_m": null,
+      "rel_bias_pct": null,
+      "mape_pct": null,
+      "r2": null,
       "match_rate_pct": 9.3,
       "n_matched": 4,
       "n_segmented": 43,
@@ -72,6 +95,8 @@
       "pipe_crown_area_m2": 7158.7,
       "bk_crown_area_m2": 985.7,
       "crown_area_ratio": 7.263,
+      "pipe_canopy_pct": 18.1,
+      "bk_canopy_pct": 2.5,
       "mean_height_m": 16.355
     },
     {
@@ -80,6 +105,9 @@
       "genus": "Tilia cordata",
       "bias_m": 5.339,
       "mae_m": 5.691,
+      "rel_bias_pct": 55.4,
+      "mape_pct": 57.3,
+      "r2": -8.101,
       "match_rate_pct": 31.7,
       "n_matched": 26,
       "n_segmented": 82,
@@ -87,6 +115,8 @@
       "pipe_crown_area_m2": 11142.1,
       "bk_crown_area_m2": 4906.6,
       "crown_area_ratio": 2.271,
+      "pipe_canopy_pct": 17.8,
+      "bk_canopy_pct": 7.9,
       "mean_height_m": 12.101
     },
     {
@@ -95,6 +125,9 @@
       "genus": "Tilia euchlora",
       "bias_m": 2.311,
       "mae_m": 5.828,
+      "rel_bias_pct": 26.6,
+      "mape_pct": 49.3,
+      "r2": -1.158,
       "match_rate_pct": 35.5,
       "n_matched": 33,
       "n_segmented": 93,
@@ -102,6 +135,8 @@
       "pipe_crown_area_m2": 16579.9,
       "bk_crown_area_m2": 11848.7,
       "crown_area_ratio": 1.399,
+      "pipe_canopy_pct": 26.5,
+      "bk_canopy_pct": 19.0,
       "mean_height_m": 13.779
     },
     {
@@ -110,6 +145,9 @@
       "genus": "Tilia cordata",
       "bias_m": 7.205,
       "mae_m": 8.692,
+      "rel_bias_pct": 100.3,
+      "mape_pct": 109.0,
+      "r2": -3.838,
       "match_rate_pct": 75.4,
       "n_matched": 52,
       "n_segmented": 69,
@@ -117,6 +155,8 @@
       "pipe_crown_area_m2": 28186.0,
       "bk_crown_area_m2": 22673.2,
       "crown_area_ratio": 1.243,
+      "pipe_canopy_pct": 45.1,
+      "bk_canopy_pct": 36.3,
       "mean_height_m": 14.204
     },
     {
@@ -125,6 +165,9 @@
       "genus": "Quercus robur",
       "bias_m": null,
       "mae_m": null,
+      "rel_bias_pct": null,
+      "mape_pct": null,
+      "r2": null,
       "match_rate_pct": 10.0,
       "n_matched": 4,
       "n_segmented": 40,
@@ -132,6 +175,8 @@
       "pipe_crown_area_m2": 10125.4,
       "bk_crown_area_m2": 1525.4,
       "crown_area_ratio": 6.638,
+      "pipe_canopy_pct": 25.6,
+      "bk_canopy_pct": 3.9,
       "mean_height_m": 17.041
     },
     {
@@ -140,6 +185,9 @@
       "genus": "Tilia cordata",
       "bias_m": 4.122,
       "mae_m": 4.346,
+      "rel_bias_pct": 46.6,
+      "mape_pct": 48.5,
+      "r2": -3.163,
       "match_rate_pct": 34.3,
       "n_matched": 36,
       "n_segmented": 105,
@@ -147,6 +195,8 @@
       "pipe_crown_area_m2": 8944.2,
       "bk_crown_area_m2": 2954.1,
       "crown_area_ratio": 3.028,
+      "pipe_canopy_pct": 14.3,
+      "bk_canopy_pct": 4.7,
       "mean_height_m": 11.45
     },
     {
@@ -155,6 +205,9 @@
       "genus": "Sorbus intermedia",
       "bias_m": 5.9,
       "mae_m": 10.629,
+      "rel_bias_pct": 71.9,
+      "mape_pct": 97.9,
+      "r2": -2.403,
       "match_rate_pct": 11.4,
       "n_matched": 8,
       "n_segmented": 70,
@@ -162,6 +215,8 @@
       "pipe_crown_area_m2": 8667.2,
       "bk_crown_area_m2": 3170.8,
       "crown_area_ratio": 2.733,
+      "pipe_canopy_pct": 13.9,
+      "bk_canopy_pct": 5.1,
       "mean_height_m": 9.601
     },
     {
@@ -170,6 +225,9 @@
       "genus": "Robinia pseudoacacia",
       "bias_m": 5.899,
       "mae_m": 6.273,
+      "rel_bias_pct": 51.9,
+      "mape_pct": 54.8,
+      "r2": -1.176,
       "match_rate_pct": 14.5,
       "n_matched": 8,
       "n_segmented": 55,
@@ -177,6 +235,8 @@
       "pipe_crown_area_m2": 9716.4,
       "bk_crown_area_m2": 1690.2,
       "crown_area_ratio": 5.749,
+      "pipe_canopy_pct": 15.5,
+      "bk_canopy_pct": 2.7,
       "mean_height_m": 15.959
     },
     {
@@ -185,6 +245,9 @@
       "genus": "\u2014",
       "bias_m": null,
       "mae_m": null,
+      "rel_bias_pct": null,
+      "mape_pct": null,
+      "r2": null,
       "match_rate_pct": 0.0,
       "n_matched": 0,
       "n_segmented": 65,
@@ -192,6 +255,8 @@
       "pipe_crown_area_m2": 8211.4,
       "bk_crown_area_m2": 0,
       "crown_area_ratio": null,
+      "pipe_canopy_pct": 20.8,
+      "bk_canopy_pct": 0.0,
       "mean_height_m": 13.8
     },
     {
@@ -200,6 +265,9 @@
       "genus": "Acer platanoides",
       "bias_m": 2.513,
       "mae_m": 2.802,
+      "rel_bias_pct": 32.2,
+      "mape_pct": 36.0,
+      "r2": -2.383,
       "match_rate_pct": 57.1,
       "n_matched": 24,
       "n_segmented": 42,
@@ -207,6 +275,8 @@
       "pipe_crown_area_m2": 3563.0,
       "bk_crown_area_m2": 874.1,
       "crown_area_ratio": 4.076,
+      "pipe_canopy_pct": 13.6,
+      "bk_canopy_pct": 3.3,
       "mean_height_m": 10.842
     },
     {
@@ -215,6 +285,9 @@
       "genus": "Sorbus thuringiaca 'Fastigiata'",
       "bias_m": null,
       "mae_m": null,
+      "rel_bias_pct": null,
+      "mape_pct": null,
+      "r2": null,
       "match_rate_pct": 4.2,
       "n_matched": 1,
       "n_segmented": 24,
@@ -222,6 +295,8 @@
       "pipe_crown_area_m2": 2237.6,
       "bk_crown_area_m2": 42.4,
       "crown_area_ratio": 52.758,
+      "pipe_canopy_pct": 8.5,
+      "bk_canopy_pct": 0.2,
       "mean_height_m": 13.825
     },
     {
@@ -230,6 +305,9 @@
       "genus": "Amelanchier lamarckii",
       "bias_m": 3.432,
       "mae_m": 3.68,
+      "rel_bias_pct": 56.1,
+      "mape_pct": 61.0,
+      "r2": -24.521,
       "match_rate_pct": 30.4,
       "n_matched": 7,
       "n_segmented": 23,
@@ -237,6 +315,8 @@
       "pipe_crown_area_m2": 1584.9,
       "bk_crown_area_m2": 278.0,
       "crown_area_ratio": 5.701,
+      "pipe_canopy_pct": 6.1,
+      "bk_canopy_pct": 1.1,
       "mean_height_m": 11.679
     },
     {
@@ -245,6 +325,9 @@
       "genus": "\u2014",
       "bias_m": null,
       "mae_m": null,
+      "rel_bias_pct": null,
+      "mape_pct": null,
+      "r2": null,
       "match_rate_pct": 0.0,
       "n_matched": 0,
       "n_segmented": 27,
@@ -252,6 +335,8 @@
       "pipe_crown_area_m2": 2221.0,
       "bk_crown_area_m2": 0,
       "crown_area_ratio": null,
+      "pipe_canopy_pct": 13.4,
+      "bk_canopy_pct": 0.0,
       "mean_height_m": 12.391
     }
   ]

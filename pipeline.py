@@ -165,7 +165,7 @@ def cmd_download(dry_run: bool = False, tile_size_m: int | None = None, all_size
                 print(f"  {n} tile(s) saved — {elapsed:.1f}s total, {elapsed/n:.2f}s/tile")
 
 
-def _save_tile_summary(area_name: str, seg_dir, merged_gdf, bk_gdf, tile_size_m: int) -> None:
+def _save_tile_summary(area_name: str, seg_dir, merged_gdf, bk_gdf, tile_size_m: int) -> list:
     """Save a 6-panel tile-summary PNG alongside the merged FGB.
 
     Panels (2 × 3):
@@ -215,10 +215,16 @@ def _save_tile_summary(area_name: str, seg_dir, merged_gdf, bk_gdf, tile_size_m:
         n_matched = len(matched)
 
         bias, mae, match_rate, mean_h = None, None, None, None
+        rel_bias = mape = r2 = None
         if n_matched >= N_MIN:
             err = matched["allometric_height_m"] - matched["height_m"]
             bias = float(err.mean())
-            mae = float(err.abs().mean())
+            mae  = float(err.abs().mean())
+            rel_bias = float((err / matched["height_m"]).mean() * 100)
+            mape     = float((err.abs() / matched["height_m"]).mean() * 100)
+            ss_res = float((err ** 2).sum())
+            ss_tot = float(((matched["height_m"] - matched["height_m"].mean()) ** 2).sum())
+            r2     = float(1 - ss_res / ss_tot) if ss_tot > 0 else None
         if n_pipe > 0:
             match_rate = n_matched / n_pipe * 100
             mean_h = float(pipe["height_m"].mean())
@@ -230,6 +236,10 @@ def _save_tile_summary(area_name: str, seg_dir, merged_gdf, bk_gdf, tile_size_m:
         pipe_area = float(pipe["crown_area_m2"].sum()) if "crown_area_m2" in pipe.columns else 0
         ratio = pipe_area / bk_area if bk_area > 0 else None
 
+        tile_area_m2 = (te_m - tw_m) * (tn_m - ts_m)
+        pipe_cov = pipe_area / tile_area_m2 * 100
+        bk_cov   = bk_area  / tile_area_m2 * 100
+
         genus = None
         if len(bk_clip) > 0:
             vc = bk_clip["Gattung lang"].str.split(",").str[0].str.strip().value_counts()
@@ -240,6 +250,7 @@ def _save_tile_summary(area_name: str, seg_dir, merged_gdf, bk_gdf, tile_size_m:
             "geometry": tile_poly,
             "genus": genus or "—",
             "bias": bias, "mae": mae,
+            "rel_bias": rel_bias, "mape": mape, "r2": r2,
             "match_rate": match_rate,
             "ratio": ratio,
             "mean_h": mean_h,
@@ -248,6 +259,9 @@ def _save_tile_summary(area_name: str, seg_dir, merged_gdf, bk_gdf, tile_size_m:
             "n_bk": len(bk_valid),
             "pipe_area": pipe_area,
             "bk_area": bk_area,
+            "pipe_cov": pipe_cov,
+            "bk_cov": bk_cov,
+            "tile_area_m2": tile_area_m2,
         })
 
     # Build genus colour map (categorical)
@@ -345,12 +359,21 @@ def _save_tile_summary(area_name: str, seg_dir, merged_gdf, bk_gdf, tile_size_m:
     match_pct_total = total_matched / total_pipe * 100 if total_pipe > 0 else 0
     ratio_total     = total_pipe_area / total_bk_area  if total_bk_area > 0 else 0
 
-    bias_vals    = [r["bias"]   for r in records if r["bias"]   is not None]
-    mae_vals     = [r["mae"]    for r in records if r["mae"]    is not None]
-    mean_h_vals  = [r["mean_h"] for r in records if r["mean_h"] is not None]
-    total_bias   = sum(bias_vals)   / len(bias_vals)   if bias_vals   else None
-    total_mae    = sum(mae_vals)    / len(mae_vals)    if mae_vals    else None
-    total_mean_h = sum(mean_h_vals) / len(mean_h_vals) if mean_h_vals else None
+    bias_vals     = [r["bias"]     for r in records if r["bias"]     is not None]
+    mae_vals      = [r["mae"]      for r in records if r["mae"]      is not None]
+    mean_h_vals   = [r["mean_h"]   for r in records if r["mean_h"]   is not None]
+    rel_bias_vals = [r["rel_bias"] for r in records if r["rel_bias"] is not None]
+    mape_vals     = [r["mape"]     for r in records if r["mape"]     is not None]
+    r2_vals       = [r["r2"]       for r in records if r["r2"]       is not None]
+    total_bias     = sum(bias_vals)     / len(bias_vals)     if bias_vals     else None
+    total_mae      = sum(mae_vals)      / len(mae_vals)      if mae_vals      else None
+    total_mean_h   = sum(mean_h_vals)   / len(mean_h_vals)   if mean_h_vals   else None
+    total_rel_bias = sum(rel_bias_vals) / len(rel_bias_vals) if rel_bias_vals else None
+    total_mape     = sum(mape_vals)     / len(mape_vals)     if mape_vals     else None
+    total_r2       = sum(r2_vals)       / len(r2_vals)       if r2_vals       else None
+    total_tile_area = sum(r["tile_area_m2"] for r in records)
+    total_pipe_cov  = total_pipe_area / total_tile_area * 100 if total_tile_area > 0 else 0
+    total_bk_cov    = total_bk_area   / total_tile_area * 100 if total_tile_area > 0 else 0
 
     # Write tile summary JSON (before figure, so it saves even if matplotlib fails)
     import json as _json
@@ -360,30 +383,40 @@ def _save_tile_summary(area_name: str, seg_dir, merged_gdf, bk_gdf, tile_size_m:
         "tile_size_m": tile_size_m,
         "n_tiles": len(records),
         "summary": {
-            "bias_m":             round(total_bias,   3) if total_bias   is not None else None,
-            "mae_m":              round(total_mae,    3) if total_mae    is not None else None,
-            "mean_height_m":      round(total_mean_h, 3) if total_mean_h is not None else None,
+            "bias_m":             round(total_bias,     3) if total_bias     is not None else None,
+            "mae_m":              round(total_mae,      3) if total_mae      is not None else None,
+            "rel_bias_pct":       round(total_rel_bias, 1) if total_rel_bias is not None else None,
+            "mape_pct":           round(total_mape,     1) if total_mape     is not None else None,
+            "r2":                 round(total_r2,       3) if total_r2       is not None else None,
+            "mean_height_m":      round(total_mean_h,   3) if total_mean_h   is not None else None,
             "n_matched":          total_matched,
             "n_segmented":        total_pipe,
             "match_rate_pct":     round(match_pct_total, 1),
             "pipe_crown_area_m2": round(total_pipe_area, 1),
             "bk_crown_area_m2":   round(total_bk_area,   1),
             "crown_area_ratio":   round(ratio_total, 3) if total_bk_area > 0 else None,
+            "pipe_canopy_pct":    round(total_pipe_cov, 1),
+            "bk_canopy_pct":      round(total_bk_cov,  1),
         },
         "tiles": [
             {
                 "ix": r["ix"], "iy": r["iy"],
                 "genus":              r["genus"],
-                "bias_m":             round(r["bias"],       3) if r["bias"]       is not None else None,
-                "mae_m":              round(r["mae"],        3) if r["mae"]        is not None else None,
+                "bias_m":             round(r["bias"],     3) if r["bias"]     is not None else None,
+                "mae_m":              round(r["mae"],      3) if r["mae"]      is not None else None,
+                "rel_bias_pct":       round(r["rel_bias"], 1) if r["rel_bias"] is not None else None,
+                "mape_pct":           round(r["mape"],     1) if r["mape"]     is not None else None,
+                "r2":                 round(r["r2"],       3) if r["r2"]       is not None else None,
                 "match_rate_pct":     round(r["match_rate"], 1) if r["match_rate"] is not None else None,
                 "n_matched":          r["n_matched"],
                 "n_segmented":        r["n_pipe"],
                 "n_bk":               r["n_bk"],
                 "pipe_crown_area_m2": round(r["pipe_area"], 1),
                 "bk_crown_area_m2":   round(r["bk_area"],  1),
-                "crown_area_ratio":   round(r["ratio"], 3) if r["ratio"] is not None else None,
-                "mean_height_m":      round(r["mean_h"], 3) if r["mean_h"] is not None else None,
+                "crown_area_ratio":   round(r["ratio"],     3) if r["ratio"]   is not None else None,
+                "pipe_canopy_pct":    round(r["pipe_cov"],  1),
+                "bk_canopy_pct":      round(r["bk_cov"],   1),
+                "mean_height_m":      round(r["mean_h"],    3) if r["mean_h"]  is not None else None,
             }
             for r in records
         ],
@@ -408,6 +441,160 @@ def _save_tile_summary(area_name: str, seg_dir, merged_gdf, bk_gdf, tile_size_m:
     plt.savefig(out_path, dpi=150, bbox_inches="tight")
     plt.close(fig)
     print(f"  tile summary → {out_path.name}")
+    return records
+
+
+def _save_tile_summary_pct(area_name: str, seg_dir, records: list, tile_size_m: int) -> None:
+    """Save a second 6-panel tile summary PNG with normalised percentage metrics.
+
+    Uses the same records list returned by _save_tile_summary (no recomputation).
+    Panels: genus | rel_bias% | MAPE% | match_rate% | pipe_canopy% | R²
+    Saved as tile_summary_pct_{tile_size_m}m.png in seg_dir.
+    """
+    from pathlib import Path as _Path
+    from pyproj import Transformer as _Transformer
+    import numpy as _np
+    from PIL import Image as _PILImage
+    import matplotlib.pyplot as plt
+    import matplotlib.colors as mcolors
+    import matplotlib.patches as mpatches
+    import geopandas as gpd
+
+    out_path = _Path(seg_dir) / f"tile_summary_pct_{tile_size_m}m.png"
+    _to_utm  = _Transformer.from_crs("EPSG:4326", "EPSG:25832", always_xy=True)
+
+    # Need orthophoto + extent (reuse same logic as _save_tile_summary)
+    ovgu = AREAS[area_name]
+    west_m, south_m = _to_utm.transform(ovgu["west"], ovgu["south"])
+    east_m, north_m = _to_utm.transform(ovgu["east"], ovgu["north"])
+    extent = [west_m, east_m, south_m, north_m]
+
+    img_dir  = OUTPUT_DIR / area_name
+    img_path = img_dir / f"{area_name}_full.png"
+    if not img_path.exists():
+        print(f"  [tile_summary_pct] orthophoto not found, skipping: {img_path}")
+        return
+    full_img = _np.array(_PILImage.open(img_path).convert("RGB"))
+
+    # Aggregate totals for footers
+    rel_bias_vals = [r["rel_bias"] for r in records if r["rel_bias"] is not None]
+    mape_vals     = [r["mape"]     for r in records if r["mape"]     is not None]
+    r2_vals       = [r["r2"]       for r in records if r["r2"]       is not None]
+    mean_h_vals   = [r["mean_h"]   for r in records if r["mean_h"]   is not None]
+    total_matched   = sum(r["n_matched"] for r in records)
+    total_pipe      = sum(r["n_pipe"]    for r in records)
+    total_pipe_area = sum(r["pipe_area"] for r in records)
+    total_bk_area   = sum(r["bk_area"]  for r in records)
+    total_tile_area = sum(r["tile_area_m2"] for r in records)
+    match_pct_total = total_matched / total_pipe * 100 if total_pipe > 0 else 0
+    total_rel_bias  = sum(rel_bias_vals) / len(rel_bias_vals) if rel_bias_vals else None
+    total_mape      = sum(mape_vals)     / len(mape_vals)     if mape_vals     else None
+    total_r2        = sum(r2_vals)       / len(r2_vals)       if r2_vals       else None
+    total_mean_h    = sum(mean_h_vals)   / len(mean_h_vals)   if mean_h_vals   else None
+    total_pipe_cov  = total_pipe_area / total_tile_area * 100 if total_tile_area > 0 else 0
+    total_bk_cov    = total_bk_area   / total_tile_area * 100 if total_tile_area > 0 else 0
+
+    # Genus colour map
+    all_genera = sorted({r["genus"] for r in records})
+    tab20 = plt.cm.tab20.colors
+    genus_color = {g: tab20[i % len(tab20)] for i, g in enumerate(all_genera)}
+
+    fig, axes = plt.subplots(2, 3, figsize=(18, 12))
+    fig.suptitle(f"{area_name}  |  {tile_size_m} m tiles  |  normalised metrics", fontsize=13)
+
+    def _safe_norm_pct(vals, centre=None):
+        vals = [v for v in vals if v is not None]
+        if not vals:
+            return mcolors.Normalize(0, 1)
+        lo, hi = min(vals), max(vals)
+        if centre is not None:
+            lim = max(abs(lo - centre), abs(hi - centre), 1.0)
+            return mcolors.TwoSlopeNorm(vmin=centre - lim, vcenter=centre, vmax=centre + lim)
+        return mcolors.Normalize(vmin=lo, vmax=max(hi, lo + 0.1))
+
+    dynamic_norms = {
+        "rel_bias": _safe_norm_pct([r["rel_bias"] for r in records], centre=0),
+        "mape":     _safe_norm_pct([r["mape"]     for r in records]),
+        "pipe_cov": _safe_norm_pct([r["pipe_cov"] for r in records]),
+        "r2":       mcolors.Normalize(vmin=0, vmax=1),
+    }
+
+    def _abbrev_species(name: str) -> str:
+        parts = name.split()
+        if len(parts) >= 2:
+            return f"{parts[0][0]}. {' '.join(parts[1:])}"
+        return name
+
+    panel_cfg = [
+        (axes[0, 0], "genus",      "Majority BK genus",          None,            None,                                  None,     True),
+        (axes[0, 1], "rel_bias",   "Relative height bias (%)",   plt.cm.RdBu_r,   None,                                  "{:+.0f}%", False),
+        (axes[0, 2], "mape",       "Height MAPE (%)",            plt.cm.YlOrRd,   None,                                  "{:.0f}%",  False),
+        (axes[1, 0], "match_rate", "BK match rate (%)",          plt.cm.YlGn,     mcolors.Normalize(vmin=0, vmax=100),   "{:.0f}%",  False),
+        (axes[1, 1], "pipe_cov",   "Pipeline canopy cover (%)",  plt.cm.YlGn,     None,                                  "{:.0f}%",  False),
+        (axes[1, 2], "r2",         "Allometric R² (per tile)",   plt.cm.viridis,  mcolors.Normalize(vmin=0, vmax=1),     "{:.2f}",   False),
+    ]
+
+    for ax, key, title, cmap, norm, fmt, use_genus in panel_cfg:
+        ax.imshow(full_img, extent=extent, origin="upper", aspect="equal")
+        if use_genus:
+            legend_patches = []
+        else:
+            actual_norm = norm if norm is not None else dynamic_norms.get(key)
+
+        for r in records:
+            val = r[key]
+            gdf_t = gpd.GeoDataFrame([{"geometry": r["geometry"]}], crs="EPSG:25832")
+            if use_genus:
+                color = genus_color[val]
+                gdf_t.plot(ax=ax, facecolor=color, edgecolor="white", linewidth=1, alpha=0.55, zorder=2)
+                lbl = _abbrev_species(val) if val != "—" else "—"
+            elif val is None:
+                gdf_t.plot(ax=ax, facecolor="#888888", edgecolor="white", linewidth=1, alpha=0.5, zorder=2)
+                lbl = "—"
+            else:
+                color = cmap(actual_norm(val))
+                gdf_t.plot(ax=ax, facecolor=color, edgecolor="white", linewidth=1, alpha=0.6, zorder=2)
+                if key == "pipe_cov":
+                    lbl = f"{val:.0f}%\n(BK {r['bk_cov']:.0f}%)"
+                elif key == "match_rate":
+                    lbl = f"{r['n_matched']} / {r['n_pipe']}\n{val:.0f}%"
+                else:
+                    lbl = fmt.format(val)
+
+            cx, cy = r["geometry"].centroid.x, r["geometry"].centroid.y
+            ax.text(cx, cy, lbl, ha="center", va="center", fontsize=7, fontweight="bold",
+                    bbox=dict(facecolor="white", alpha=0.65, edgecolor="none", pad=1.5), zorder=3)
+
+        ax.set_xlim(west_m, east_m); ax.set_ylim(south_m, north_m)
+        ax.set_title(title, fontsize=10)
+        ax.set_xlabel("Easting (m)", fontsize=8); ax.set_ylabel("Northing (m)", fontsize=8)
+        ax.tick_params(labelsize=7)
+
+        if use_genus:
+            handles = [mpatches.Patch(color=genus_color[g], label=g) for g in all_genera]
+            ax.legend(handles=handles, fontsize=6, loc="lower right", framealpha=0.85, ncol=2)
+        else:
+            sm = plt.cm.ScalarMappable(cmap=cmap, norm=actual_norm)
+            sm.set_array([])
+            plt.colorbar(sm, ax=ax, shrink=0.65, pad=0.02)
+
+    plt.tight_layout(rect=[0, 0.05, 1, 1])
+
+    footers = [
+        (axes[0, 1], f"Area rel. bias = {total_rel_bias:+.1f} %"  if total_rel_bias is not None else "—"),
+        (axes[0, 2], f"Area MAPE = {total_mape:.1f} %"             if total_mape     is not None else "—"),
+        (axes[1, 0], f"Total: {total_matched} matched / {total_pipe} segmented ({match_pct_total:.0f}%)"),
+        (axes[1, 1], f"Pipeline {total_pipe_cov:.1f} % / BK {total_bk_cov:.1f} % canopy cover"),
+        (axes[1, 2], f"Mean R² = {total_r2:.2f}  |  mean height = {total_mean_h:.1f} m"
+                     if total_r2 is not None else "—"),
+    ]
+    for ax_f, txt in footers:
+        ax_f.text(0.5, -0.08, txt, transform=ax_f.transAxes,
+                  ha="center", va="top", fontsize=9)
+
+    plt.savefig(out_path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
+    print(f"  tile summary (pct) → {out_path.name}")
 
 
 def _save_location_map(area_name: str, seg_dir, merged_gdf, bk_gdf, tile_size_m: int) -> None:
@@ -620,7 +807,8 @@ def cmd_segment(vegetation_model: str = DEFAULT_VEGETATION_MODEL, tile_size_m: i
                         mae  = err.abs().mean()
                         print(f"  height validation (n={len(m)} BK-matched): "
                               f"bias={bias:+.1f} m  MAE={mae:.1f} m  RMSE={rmse:.1f} m")
-                _save_tile_summary(area_name, seg_dir, merged, bk_gdf, size)
+                records = _save_tile_summary(area_name, seg_dir, merged, bk_gdf, size)
+                _save_tile_summary_pct(area_name, seg_dir, records, size)
                 _save_location_map(area_name, seg_dir, merged, bk_gdf, size)
 
 
