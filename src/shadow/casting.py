@@ -49,6 +49,64 @@ def _shift_mask(mask: np.ndarray, dr: int, dc: int) -> np.ndarray:
     return out
 
 
+def _watershed_split_labels(
+    labeled: np.ndarray,
+    n: int,
+    pixel_size_m: float,
+    max_crown_radius_m: float,
+    min_component_pixels: int = 50,
+) -> np.ndarray:
+    """Split oversized CC components via watershed; return modified labeled array.
+
+    For each component (labels 1..n) whose equivalent crown radius exceeds
+    max_crown_radius_m and has more than one distance-transform peak, the pixels
+    are relabelled with fresh integer labels starting from max(labeled)+1.
+    Single-peak oversized blobs are left under their original label (caller caps
+    them during height estimation).  Small sub-regions below min_component_pixels
+    are zeroed out.
+    """
+    from scipy.ndimage import distance_transform_edt
+    from skimage.feature import peak_local_max
+    from skimage.segmentation import watershed
+
+    px_area = pixel_size_m ** 2
+    min_dist_px = max(1, int(max_crown_radius_m * 0.5 / pixel_size_m))
+    next_label = int(labeled.max()) + 1
+
+    for k in range(1, n + 1):
+        comp_mask = labeled == k
+        n_pixels = int(comp_mask.sum())
+        if n_pixels < min_component_pixels:
+            continue
+        crown_radius_m = math.sqrt(n_pixels * px_area / math.pi)
+        if crown_radius_m <= max_crown_radius_m:
+            continue
+
+        dist = distance_transform_edt(comp_mask)
+        coords = peak_local_max(dist, min_distance=min_dist_px, labels=comp_mask.astype(np.int32))
+        if len(coords) <= 1:
+            continue  # single-peak blob: keep label k, caller handles capping
+
+        peaks_mask = np.zeros(dist.shape, dtype=bool)
+        peaks_mask[tuple(coords.T)] = True
+        markers, _ = cc_label(peaks_mask)
+        split = watershed(-dist, markers, mask=comp_mask)
+
+        for sub_val in np.unique(split[comp_mask]):
+            if sub_val == 0:
+                continue
+            sub_mask = split == sub_val
+            if int(sub_mask.sum()) < min_component_pixels:
+                labeled[sub_mask] = 0
+                continue
+            labeled[sub_mask] = next_label
+            next_label += 1
+
+        labeled[comp_mask & (labeled == k)] = 0  # zero residual pixels under original label
+
+    return labeled
+
+
 def estimate_tree_heights(
     tree_mask: np.ndarray,
     pixel_size_m: float,
@@ -86,65 +144,30 @@ def estimate_tree_heights(
     heights : dict[int, tuple[float, float]]
         Mapping of label → (tree_height_m, crown_radius_m).
     """
-    from scipy.ndimage import distance_transform_edt
-    from skimage.feature import peak_local_max
-    from skimage.segmentation import watershed
-
     A, B = ALLOMETRIC_PROFILES.get(dominant_genus, (ALLOMETRIC_A, ALLOMETRIC_B)) \
            if dominant_genus else (ALLOMETRIC_A, ALLOMETRIC_B)
 
     labeled, n = cc_label(tree_mask, structure=_8CONN)
     labeled = labeled.astype(np.int32)
-    heights: dict[int, tuple[float, float]] = {}
-    px_area = pixel_size_m ** 2
-    next_label = int(labeled.max()) + 1
-    min_dist_px = max(1, int(max_crown_radius_m * 0.5 / pixel_size_m))
+    labeled = _watershed_split_labels(labeled, n, pixel_size_m, max_crown_radius_m,
+                                      min_component_pixels)
 
-    for k in range(1, n + 1):
+    px_area = pixel_size_m ** 2
+    heights: dict[int, tuple[float, float]] = {}
+    for k in np.unique(labeled):
+        if k == 0:
+            continue
         comp_mask = labeled == k
         n_pixels = int(comp_mask.sum())
         if n_pixels < min_component_pixels:
             continue
-
         crown_area_m2 = n_pixels * px_area
         crown_radius_m = math.sqrt(crown_area_m2 / math.pi)
-
-        if crown_radius_m <= max_crown_radius_m:
-            heights[k] = (math.exp(A + B * math.log(crown_area_m2)), crown_radius_m)
-            continue
-
-        # Large cluster: watershed to recover individual crowns
-        dist = distance_transform_edt(comp_mask)
-        coords = peak_local_max(dist, min_distance=min_dist_px, labels=comp_mask.astype(np.int32))
-
-        if len(coords) <= 1:
-            # Only one peak — cap the area to a single-crown max before estimating height
-            capped_radius = min(crown_radius_m, max_crown_radius_m)
-            capped_area = math.pi * capped_radius ** 2
-            heights[k] = (math.exp(A + B * math.log(capped_area)), capped_radius)
-            continue
-
-        peaks_mask = np.zeros(dist.shape, dtype=bool)
-        peaks_mask[tuple(coords.T)] = True
-        markers, _ = cc_label(peaks_mask)
-        split = watershed(-dist, markers, mask=comp_mask)
-
-        for sub_val in np.unique(split[comp_mask]):
-            if sub_val == 0:
-                continue
-            sub_mask = split == sub_val
-            sub_pixels = int(sub_mask.sum())
-            if sub_pixels < min_component_pixels:
-                labeled[sub_mask] = 0
-                continue
-            sub_area_m2 = sub_pixels * px_area
-            sub_radius_m = min(math.sqrt(sub_area_m2 / math.pi), max_crown_radius_m)
-            labeled[sub_mask] = next_label
-            heights[next_label] = (math.exp(A + B * math.log(sub_area_m2)), sub_radius_m)
-            next_label += 1
-
-        # Zero pixels still carrying original label k (small watershed regions)
-        labeled[comp_mask & (labeled == k)] = 0
+        if crown_radius_m > max_crown_radius_m:
+            # Single-peak large blob not split by watershed — cap area for height estimate
+            crown_radius_m = max_crown_radius_m
+            crown_area_m2 = math.pi * crown_radius_m ** 2
+        heights[k] = (math.exp(A + B * math.log(crown_area_m2)), crown_radius_m)
 
     return labeled, heights
 
@@ -156,12 +179,13 @@ def vectorize_trees(
     min_component_pixels: int = 50,
     dominant_genus: str | None = None,
     max_crown_radius_m: float = MAX_CROWN_RADIUS_M,
+    apply_watershed: bool = False,
 ) -> gpd.GeoDataFrame:
     """Convert a tree mask to georeferenced polygon features in EPSG:25832.
 
-    Runs plain connected-component labeling (no watershed splitting) and the
-    allometric height formula, then traces each component into a Shapely polygon
-    via rasterio.features.shapes(). One polygon per canopy blob.
+    Runs connected-component labeling and the allometric height formula, then
+    traces each component into a Shapely polygon via rasterio.features.shapes().
+    When apply_watershed=True, oversized components are split before vectorising.
 
     Returns a GeoDataFrame with columns:
       tree_id (int), geometry (Polygon), height_m, crown_radius_m,
@@ -177,9 +201,12 @@ def vectorize_trees(
 
     labeled, n = cc_label(tree_mask, structure=_8CONN)
     labeled = labeled.astype(np.int32)
+    if apply_watershed:
+        labeled = _watershed_split_labels(labeled, n, pixel_size_m, max_crown_radius_m,
+                                          min_component_pixels)
 
     records = []
-    for k in range(1, n + 1):
+    for k in np.unique(labeled[labeled > 0]):
         comp_mask = labeled == k
         n_pixels = int(comp_mask.sum())
         if n_pixels < min_component_pixels:

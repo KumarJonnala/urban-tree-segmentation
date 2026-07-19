@@ -45,7 +45,7 @@ import time
 import numpy as np
 from PIL import Image
 
-from src.config import AREAS, DEFAULT_VEGETATION_MODEL, OUTPUT_DIR, TILE_SIZE_M, TILE_SIZES_M
+from src.config import AREAS, DEFAULT_VEGETATION_MODEL, MAX_CROWN_RADIUS_M, OUTPUT_DIR, TILE_SIZE_M, TILE_SIZES_M
 from src.data_preprocessing import fetch_area_grid, fetch_full_area_image, fetch_buildings, fetch_roads, tiles_for_area
 from src.segmentation import (
     compare_vegetation,
@@ -611,6 +611,137 @@ def _save_tile_summary_pct(area_name: str, seg_dir, records: list, tile_size_m: 
     print(f"  tile summary (pct) → {out_path.name}")
 
 
+def _save_watershed_comparison(
+    area_name: str,
+    seg_dir,
+    tile_size_m: int,
+    vegetation_model: str,
+    max_crown_radius_m: float = MAX_CROWN_RADIUS_M,
+) -> None:
+    """Compare crown polygon counts and area distributions pre vs post watershed.
+
+    Loads each per-tile .npy segmentation map, runs vectorize_trees twice
+    (apply_watershed=False and True), and saves a 2-panel PNG:
+      Left  — log-scale crown area histogram, pre (blue) vs post (orange)
+      Right — per-tile tree-count grouped bar chart with Δn annotations
+    """
+    import numpy as np
+    import matplotlib.pyplot as plt
+    from pathlib import Path as _Path
+    from src.data_preprocessing import tiles_for_area
+    from src.shadow.casting import vectorize_trees
+
+    out_path = _Path(seg_dir) / f"watershed_comparison_{tile_size_m}m.png"
+    tiles = tiles_for_area(AREAS[area_name], tile_size_m)
+
+    rows = []
+    all_pre, all_post = [], []
+
+    for t in tiles:
+        seg_path = (
+            _Path(seg_dir)
+            / f"{area_name}_tile_{t['ix']}_{t['iy']}_{vegetation_model}_seg.npy"
+        )
+        if not seg_path.exists():
+            continue
+        seg_map   = np.load(seg_path)
+        tree_mask = seg_map == 1
+        gdf_pre  = vectorize_trees(tree_mask, t, vegetation_model,
+                                   apply_watershed=False,
+                                   max_crown_radius_m=max_crown_radius_m)
+        gdf_post = vectorize_trees(tree_mask, t, vegetation_model,
+                                   apply_watershed=True,
+                                   max_crown_radius_m=max_crown_radius_m)
+        n_pre, n_post = len(gdf_pre), len(gdf_post)
+        n_oversized = int(
+            (gdf_pre["crown_area_m2"] > np.pi * max_crown_radius_m ** 2).sum()
+        )
+        rows.append({
+            "tile":       f"({t['ix']},{t['iy']})",
+            "n_pre":      n_pre,
+            "n_post":     n_post,
+            "n_oversized": n_oversized,
+            "mean_pre":   float(gdf_pre["crown_area_m2"].mean()) if n_pre else 0.0,
+            "mean_post":  float(gdf_post["crown_area_m2"].mean()) if n_post else 0.0,
+        })
+        all_pre.extend(gdf_pre["crown_area_m2"].tolist())
+        all_post.extend(gdf_post["crown_area_m2"].tolist())
+
+    if not rows:
+        print(f"  [watershed_comparison] no .npy tiles found, skipping")
+        return
+
+    total_pre  = sum(r["n_pre"]  for r in rows)
+    total_post = sum(r["n_post"] for r in rows)
+    total_split = sum(r["n_oversized"] for r in rows)
+
+    fig, axes = plt.subplots(1, 2, figsize=(16, 6))
+
+    # --- Panel 1: crown area histogram (log scale) ---
+    ax = axes[0]
+    bins = np.logspace(
+        np.log10(max(min(all_pre + all_post), 1)),
+        np.log10(max(all_pre + all_post) * 1.05),
+        40,
+    )
+    ax.hist(all_pre,  bins=bins, alpha=0.55, color="steelblue",  label=f"Pre-watershed  (n={total_pre})")
+    ax.hist(all_post, bins=bins, alpha=0.55, color="darkorange", label=f"Post-watershed (n={total_post})")
+    ax.set_xscale("log")
+    ax.set_xlabel("Crown area (m²)")
+    ax.set_ylabel("Polygon count")
+    ax.set_title(f"Crown area distribution — {tile_size_m} m tiles")
+    ax.axvline(np.pi * max_crown_radius_m ** 2, color="red", linestyle="--", linewidth=1,
+               label=f"Watershed threshold ({max_crown_radius_m:.0f} m radius)")
+    ax.legend(fontsize=8)
+
+    # --- Panel 2: per-tile count grouped bars ---
+    ax2 = axes[1]
+    tile_labels = [r["tile"] for r in rows]
+    n_tiles = len(rows)
+    x = np.arange(n_tiles)
+    w = 0.35
+    b_pre  = ax2.bar(x - w / 2, [r["n_pre"]  for r in rows], w, color="steelblue",  alpha=0.8, label="Pre")
+    b_post = ax2.bar(x + w / 2, [r["n_post"] for r in rows], w, color="darkorange", alpha=0.8, label="Post")
+    for rect_pre, rect_post, r in zip(b_pre, b_post, rows):
+        delta = r["n_post"] - r["n_pre"]
+        if delta != 0:
+            ax2.text(
+                rect_post.get_x() + rect_post.get_width() / 2,
+                rect_post.get_height() + 1,
+                f"+{delta}" if delta > 0 else str(delta),
+                ha="center", va="bottom", fontsize=8,
+                color="seagreen" if delta > 0 else "crimson",
+            )
+    ax2.set_xticks(x)
+    ax2.set_xticklabels(tile_labels, rotation=45, ha="right", fontsize=8)
+    ax2.set_ylabel("Tree polygon count")
+    ax2.set_title(f"Per-tile polygon count — pre vs post watershed")
+    ax2.legend(fontsize=8)
+
+    plt.suptitle(
+        f"Watershed comparison — {area_name} @ {tile_size_m} m  "
+        f"[pre: {total_pre}, post: {total_post}, "
+        f"oversized blobs split: {total_split}]",
+        y=1.01,
+    )
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
+    print(f"  watershed comparison → {out_path.name}")
+
+    # Summary table
+    print(f"\n  {'Tile':>8}  {'Pre':>5}  {'Post':>5}  {'Δ':>4}  "
+          f"{'Oversized':>10}  {'Mean area pre':>14}  {'Mean area post':>15}")
+    print(f"  {'-'*70}")
+    for r in rows:
+        print(f"  {r['tile']:>8}  {r['n_pre']:>5}  {r['n_post']:>5}  "
+              f"{r['n_post']-r['n_pre']:>+4}  {r['n_oversized']:>10}  "
+              f"{r['mean_pre']:>14.1f}  {r['mean_post']:>15.1f}")
+    print(f"  {'-'*70}")
+    print(f"  {'TOTAL':>8}  {total_pre:>5}  {total_post:>5}  "
+          f"{total_post-total_pre:>+4}  {total_split:>10}")
+
+
 def _save_location_map(area_name: str, seg_dir, merged_gdf, bk_gdf, tile_size_m: int) -> None:
     """Save a 2-panel location map: BK crown circles (left) and pipeline trees (right).
 
@@ -736,7 +867,7 @@ def cmd_segment(vegetation_model: str = DEFAULT_VEGETATION_MODEL, tile_size_m: i
     from pyproj import Transformer
     from src.shadow.casting import vectorize_trees
     from src.shadow.cadastre import enrich_from_baumkataster, tile_dominant_genus
-    from src.config import BAUMKATASTER_PATH, ALLOMETRIC_PROFILES, CROWN_RADIUS_BY_GENUS, MAX_CROWN_RADIUS_M
+    from src.config import BAUMKATASTER_PATH, ALLOMETRIC_PROFILES, CROWN_RADIUS_BY_GENUS
 
     sizes = TILE_SIZES_M if all_sizes else [tile_size_m or TILE_SIZE_M]
     _, mask_fn = _load_vegetation_model(vegetation_model)
@@ -823,6 +954,7 @@ def cmd_segment(vegetation_model: str = DEFAULT_VEGETATION_MODEL, tile_size_m: i
                               f"bias={bias:+.1f} m  MAE={mae:.1f} m  RMSE={rmse:.1f} m")
                 records = _save_tile_summary(area_name, seg_dir, merged, bk_gdf, size)
                 _save_tile_summary_pct(area_name, seg_dir, records, size)
+                _save_watershed_comparison(area_name, seg_dir, size, vegetation_model)
                 _save_location_map(area_name, seg_dir, merged, bk_gdf, size)
 
 
