@@ -83,9 +83,22 @@ BK_MATCH_BUFFER_MIN_M = 2.0
 
 # Allometric height model: H = exp(ALLOMETRIC_A + ALLOMETRIC_B * ln(CPA_m2))
 # Power-law form: direct OLS of ln(H) ~ ln(CPA) on Magdeburg Baumkataster 2026
-# (n=84,081 street trees, all species, CPA = π(Kronendurchmesser/2)²).
-# R²=0.53; predictions match cadastre medians within ±10% for crown diameters 4–12 m.
+# (n=84,081 trees, all species, CPA = π(Kronendurchmesser/2)²). Not street trees only:
+# by Objektart lang that population is 63% Öffentliches Grün / 36% AMT 66 (street) / 2%
+# Spielplatz, and park and street trees have measurably different allometry — see below.
+# R²=0.53 (ln-space); predictions match cadastre medians within ±10% for crown diameters 4–12 m.
 # Source: Baeume_SFM_2026.gpkg (references/), fitted in test_notebooks/shadow_analysis.ipynb.
+#
+# Held out on ovgu_bbox (n=1,045 registry trees), 5-fold CV, seed 42 — see
+# test_notebooks/holdout_validation.ipynb:
+#   out-of-fold ln-R² +0.661 vs +0.656 scored circularly, so the fit is NOT overfit;
+#   it also sits at 93% of the +0.708 ceiling any function of CPA alone could reach,
+#   because Kronendurchmesser is field-estimated to the nearest metre.
+#   In metres the error is a tilt rather than scatter: trees under 10 m come out ~2 m
+#   too tall and trees over 22 m ~6 m too short, so the largest under-prediction lands
+#   on the trees that cast the longest shadows.
+#   A local refit would give A=1.169, B=0.350; not adopted (it buys ~0.005 out-of-fold
+#   and would invalidate allometric_height_m / h_global_m in every FGB until re-segment).
 ALLOMETRIC_A = 1.317   # ln-space intercept
 ALLOMETRIC_B = 0.318   # power-law exponent on CPA (m²)
 
